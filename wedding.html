@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ростислава & Недко · 06.09.2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #f5f0e8;
+      --ivory:   #faf7f2;
+      --warm:    #ede6d6;
+      --gold:    #b08d57;
+      --gold-lt: #d4af75;
+      --wine:    #6b2737;
+      --wine-lt: #8a3347;
+      --text:    #2c2118;
+      --muted:   #7a6a58;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ivory);
+      color: var(--text);
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 1.5rem 2rem;
+      position: relative;
+      background: var(--cream);
+      overflow: hidden;
+    }
+
+    /* Decorative corner botanical SVGs */
+    .hero::before, .hero::after {
+      content: '';
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23b08d57' stroke-width='0.8' opacity='0.45'%3E%3Cellipse cx='100' cy='180' rx='6' ry='22' transform='rotate(-20 100 180)'/%3E%3Cellipse cx='100' cy='180' rx='6' ry='22' transform='rotate(20 100 180)'/%3E%3Cellipse cx='100' cy='175' rx='5' ry='18' transform='rotate(-50 100 175)'/%3E%3Cellipse cx='100' cy='175' rx='5' ry='18' transform='rotate(50 100 175)'/%3E%3Cellipse cx='100' cy='170' rx='4' ry='14' transform='rotate(-80 100 170)'/%3E%3Cellipse cx='100' cy='170' rx='4' ry='14' transform='rotate(80 100 170)'/%3E%3Cpath d='M100 190 Q90 160 100 130 Q110 160 100 190' stroke-width='1'/%3E%3Ccircle cx='100' cy='128' r='5'/%3E%3Ccircle cx='83' cy='150' r='4'/%3E%3Ccircle cx='117' cy='150' r='4'/%3E%3Cpath d='M60 170 Q70 155 85 148'/%3E%3Cpath d='M140 170 Q130 155 115 148'/%3E%3Cpath d='M50 180 Q62 165 78 160'/%3E%3Cpath d='M150 180 Q138 165 122 160'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+    }
+    .hero::before { top: -20px; left: -20px; transform: rotate(135deg); }
+    .hero::after  { bottom: -20px; right: -20px; transform: rotate(-45deg); }
+
+    .hero-top-line {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.2s forwards;
+    }
+
+    .hero-ampersand {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(5rem, 18vw, 10rem);
+      font-weight: 300;
+      color: var(--gold-lt);
+      line-height: 1;
+      position: absolute;
+      opacity: 0.18;
+      pointer-events: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -54%);
+    }
+
+    .hero-names {
+      position: relative;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.4s forwards;
+    }
+
+    .hero-names h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.8rem, 10vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      color: var(--wine);
+    }
+    .hero-names h1 span {
+      display: block;
+    }
+    .hero-names .connector {
+      font-style: italic;
+      font-size: 0.45em;
+      color: var(--gold);
+      display: block;
+      letter-spacing: 0.15em;
+      margin: 0.2em 0;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2rem auto;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.6s forwards;
+    }
+
+    .hero-date {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
+
+    .hero-location {
+      margin-top: 0.6rem;
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 1s ease 1s forwards;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--gold);
+      opacity: 0;
+      animation: fadeUp 1s ease 1.4s forwards;
+    }
+    .scroll-hint span {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .scroll-hint svg { animation: bounce 2s ease-in-out infinite; }
+
+    /* ─── COUNTDOWN ─────────────────────────────────────────────── */
+    .countdown-section {
+      background: var(--wine);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .countdown-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-lt);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 64px;
+    }
+    .countdown-unit .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1;
+    }
+    .countdown-unit .lbl {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      color: var(--gold-lt);
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+    .countdown-sep {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: var(--gold);
+      line-height: 1.2;
+      align-self: flex-start;
+      padding-top: 0.15rem;
+    }
+
+    /* ─── SECTIONS ──────────────────────────────────────────────── */
+    section {
+      padding: 5rem 1.5rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-weight: 300;
+      text-align: center;
+      color: var(--wine);
+      margin-bottom: 3rem;
+      line-height: 1.2;
+    }
+
+    .gold-rule {
+      width: 50px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 3rem;
+    }
+
+    /* ─── TIMELINE ──────────────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.55rem;
+      top: 6px;
+      bottom: 6px;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold-lt) 10%, var(--gold-lt) 90%, transparent);
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .tl-item.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .tl-dot {
+      position: absolute;
+      left: -2.5rem;
+      top: 0.35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--ivory);
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tl-dot::after {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .tl-time {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .tl-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--wine);
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+    }
+
+    .tl-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .tl-icon {
+      display: inline-block;
+      margin-right: 0.4rem;
+    }
+
+    /* ─── VENUE CARD ────────────────────────────────────────────── */
+    .venue-card {
+      background: var(--cream);
+      border: 1px solid var(--warm);
+      border-radius: 2px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .venue-card .v-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .venue-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--wine);
+      margin-bottom: 0.5rem;
+    }
+    .venue-card p {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .venue-card .v-address {
+      margin-top: 0.8rem;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .map-btn {
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: 0.55rem 1.6rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .map-btn:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    /* ─── DRESS CODE ────────────────────────────────────────────── */
+    .dress-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .dress-card {
+      background: var(--cream);
+      border: 1px solid var(--warm);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    .dress-card .dc-icon { font-size: 1.8rem; display: block; margin-bottom: 0.5rem; }
+    .dress-card h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 0.4rem;
+    }
+    .dress-card p { font-size: 0.85rem; color: var(--muted); }
+
+    .dress-note {
+      margin-top: 1.5rem;
+      padding: 1rem 1.5rem;
+      border-left: 2px solid var(--gold);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+      background: var(--cream);
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      background: var(--wine);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 3.5rem 1.5rem;
+    }
+    footer .f-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    footer .f-date {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-lt);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    footer p { font-size: 0.85rem; line-height: 1.8; }
+
+    /* ─── SECTION DIVIDER ───────────────────────────────────────── */
+    .ornament {
+      text-align: center;
+      padding: 0.5rem 0;
+      color: var(--gold);
+      font-size: 1.2rem;
+      letter-spacing: 0.6rem;
+      opacity: 0.5;
+    }
+
+    /* ─── ANIMATIONS ────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────────── */
+    @media (max-width: 400px) {
+      .dress-grid { grid-template-columns: 1fr; }
+      .countdown-sep { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <div class="hero-ampersand">&</div>
+
+  <p class="hero-top-line">Имаме честта да Ви поканим</p>
+
+  <div class="hero-names">
+    <h1>
+      <span>Ростислава</span>
+      <span class="connector">& </span>
+      <span>Недко</span>
+    </h1>
+  </div>
+
+  <div class="hero-divider"></div>
+
+  <p class="hero-date">06 · IX · 2026</p>
+  <p class="hero-location">Разград, България</p>
+
+  <div class="scroll-hint">
+    <span>Програма</span>
+    <svg width="16" height="22" viewBox="0 0 16 22" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M8 2v16M2 14l6 6 6-6"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ═══════════════ COUNTDOWN ═══════════════ -->
+<div class="countdown-section">
+  <p class="countdown-label">Остават</p>
+  <div class="countdown-grid">
+    <div class="countdown-unit">
+      <span class="num" id="cd-days">000</span>
+      <span class="lbl">дни</span>
+    </div>
+    <div class="countdown-sep">·</div>
+    <div class="countdown-unit">
+      <span class="num" id="cd-hours">00</span>
+      <span class="lbl">часа</span>
+    </div>
+    <div class="countdown-sep">·</div>
+    <div class="countdown-unit">
+      <span class="num" id="cd-mins">00</span>
+      <span class="lbl">минути</span>
+    </div>
+    <div class="countdown-sep">·</div>
+    <div class="countdown-unit">
+      <span class="num" id="cd-secs">00</span>
+      <span class="lbl">секунди</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROGRAM ═══════════════ -->
+<section id="program">
+  <p class="section-eyebrow">06 септември 2026</p>
+  <h2 class="section-title">Програма на деня</h2>
+  <div class="gold-rule"></div>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">10:00</div>
+      <div class="tl-title"><span class="tl-icon">⛪</span>Посрещане на гостите</div>
+      <div class="tl-desc">Събиране пред храм „Св. Николай Чудотворец". Пристигнете малко по-рано, за да заемете местата си преди церемонията.</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">10:30</div>
+      <div class="tl-title"><span class="tl-icon">💍</span>Венчавка</div>
+      <div class="tl-desc">Религиозна церемония в православен храм „Св. Николай Чудотворец", гр. Разград. Моля, спазвайте тишина по време на богослужението.</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">11:30</div>
+      <div class="tl-title"><span class="tl-icon">📸</span>Фотосесия</div>
+      <div class="tl-desc">Официална фотосесия пред храма и в парка. Всички гости са добре дошли да участват в груповите снимки.</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">13:00</div>
+      <div class="tl-title"><span class="tl-icon">🥂</span>Коктейл</div>
+      <div class="tl-desc">Добре дошли напитки и лека закуска в ресторанта. Музика на живо, добро настроение и запознанства.</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">14:00</div>
+      <div class="tl-title"><span class="tl-icon">🍽️</span>Сватбена трапеза</div>
+      <div class="tl-desc">Тържествена вечеря с многобройни изненади, тостове и моменти, които ще запомним завинаги.</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">16:30</div>
+      <div class="tl-title"><span class="tl-icon">🎂</span>Сватбена торта</div>
+      <div class="tl-desc">Тържествено рязане на тортата — сладкият момент на деня, за да не липсват снимки!</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">17:00</div>
+      <div class="tl-title"><span class="tl-icon">💃</span>Парти</div>
+      <div class="tl-desc">DJ сет, танци, игри и изненади. Нека тази вечер продължи колкото се може по-дълго!</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-time">00:00</div>
+      <div class="tl-title"><span class="tl-icon">🌙</span>Среднощна изненада</div>
+      <div class="tl-desc">Нещо специално за онези, които са останали до края — ще ви изненадаме!</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="ornament">· · ·</div>
+
+<!-- ═══════════════ VENUES ═══════════════ -->
+<section id="venues">
+  <p class="section-eyebrow">Локации</p>
+  <h2 class="section-title">Където ще се срещнем</h2>
+  <div class="gold-rule"></div>
+
+  <div class="venue-card">
+    <span class="v-icon">⛪</span>
+    <h3>Храм „Св. Николай Чудотворец"</h3>
+    <p>Венчавка · 10:30 ч.</p>
+    <p class="v-address">гр. Разград, България</p>
+    <a class="map-btn" href="https://maps.google.com/?q=Разград+храм+Свети+Николай+Чудотворец" target="_blank" rel="noopener">
+      Отвори в карти
+    </a>
+  </div>
+
+  <div class="venue-card">
+    <span class="v-icon">🥩</span>
+    <h3>Steak House SOHO</h3>
+    <p>Коктейл &amp; Трапеза · от 13:00 ч.</p>
+    <p class="v-address">гр. Разград, до храма</p>
+    <a class="map-btn" href="https://maps.google.com/?q=Steak+House+Soho+Razgrad" target="_blank" rel="noopener">
+      Отвори в карти
+    </a>
+  </div>
+</section>
+
+<div class="ornament">· · ·</div>
+
+<!-- ═══════════════ DRESS CODE ═══════════════ -->
+<section id="dresscode">
+  <p class="section-eyebrow">Облекло</p>
+  <h2 class="section-title">Dress code</h2>
+  <div class="gold-rule"></div>
+
+  <div class="dress-grid">
+    <div class="dress-card">
+      <span class="dc-icon">🤵</span>
+      <h4>Мъже</h4>
+      <p>Официален костюм или смокинг. Вратовръзка или папийонка.</p>
+    </div>
+    <div class="dress-card">
+      <span class="dc-icon">👗</span>
+      <h4>Жени</h4>
+      <p>Официална рокля или елегантен панталонен костюм.</p>
+    </div>
+  </div>
+
+  <div class="dress-note">
+    Молим гостите да избягват бяло и кремаво облекло — нека тези цветове останат за булката! 🤍
+  </div>
+</section>
+
+<div class="ornament">· · ·</div>
+
+<!-- ═══════════════ NOTE ═══════════════ -->
+<section id="note" style="text-align:center; padding-top: 3rem; padding-bottom: 3rem;">
+  <p class="section-eyebrow">Бележка</p>
+  <h2 class="section-title" style="font-size:1.8rem;">Малко пожелание</h2>
+  <div class="gold-rule"></div>
+  <p style="font-style:italic; color:var(--muted); font-size:1.05rem; max-width:420px; margin:0 auto; line-height:1.9;">
+    Най-хубавият подарък, който можете да ни дадете,<br>
+    е присъствието ви и усмивката ви.<br><br>
+    Ако желаете да ни изненадате с нещо,<br>
+    предпочитаме <strong style="color:var(--wine); font-style:normal;">преживявания пред вещи</strong>.
+  </p>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="f-names">Ростислава & Недко</div>
+  <div class="f-date">06 · IX · 2026 · Разград</div>
+  <p>
+    С любов и нетърпение очакваме<br>
+    да споделим този ден с вас.
+  </p>
+</footer>
+
+<script>
+  // ── Countdown ──────────────────────────────────────────────────
+  const target = new Date('2026-09-06T10:30:00');
+  function tick() {
+    const diff = target - Date.now();
+    if (diff <= 0) {
+      document.querySelector('.countdown-section').innerHTML =
+        '<p style="font-family:\'Cormorant Garamond\',serif;font-size:2rem;color:#fff;font-style:italic;">Честито на младоженците! 🥂</p>';
+      return;
+    }
+    const d = Math.floor(diff / 864e5);
+    const h = Math.floor((diff % 864e5) / 36e5);
+    const m = Math.floor((diff % 36e5) / 6e4);
+    const s = Math.floor((diff % 6e4) / 1e3);
+    document.getElementById('cd-days').textContent  = String(d).padStart(3,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ── Scroll-reveal for timeline ─────────────────────────────────
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.tl-item').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
