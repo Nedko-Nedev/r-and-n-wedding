@@ -145,6 +145,7 @@
     .venue-card { background: var(--cream); border: 1px solid var(--warm); border-radius: 4px; padding: 2.5rem 2rem; text-align: center; margin-bottom: 2rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
     .venue-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -24px rgba(107,39,55,0.45); }
     .venue-card .v-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+    .venue-card .v-logo { width: 160px; max-width: 65%; height: auto; display: block; margin: 0 auto 1rem; border-radius: 10px; background: #fff; padding: 0.5rem; box-shadow: 0 6px 18px -10px rgba(107,39,55,0.35); }
     .venue-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--wine); margin-bottom: 0.5rem; }
     .venue-card p { font-size: 1rem; color: var(--muted); }
     .venue-card .v-address { margin-top: 0.8rem; font-style: italic; font-size: 0.95rem; color: var(--muted); }
@@ -216,6 +217,12 @@
       .overlay.show .sheet { transform: none; }
       .sheet-cal { max-width: none; padding: 2.2rem 1.4rem calc(2rem + env(safe-area-inset-bottom)); }
       .sheet-rsvp { max-width: none; max-height: 94vh; padding: 2.4rem 1.4rem calc(1.6rem + env(safe-area-inset-bottom)); }
+
+      /* RSVP формата: центриран pop-up на 90% ширина, за да се вижда рамката */
+      #rsvpModal.overlay { align-items: center; padding: 0; }
+      #rsvpModal .sheet { width: 90%; border-radius: 14px; transform: translateY(16px); }
+      #rsvpModal.overlay.show .sheet { transform: none; }
+      #rsvpModal .sheet-rsvp { max-height: 88vh; padding: 2.4rem 1.4rem 2rem; }
     }
 
     /* ─── FOOTER ─────────────────────────────────────── */
@@ -252,8 +259,6 @@
     </svg>
   </div>
 
-  <p class="hero-top-line">Имаме честта да Ви поканим</p>
-
   <div class="hero-names">
     <h1>
       <span>Ростислава</span>
@@ -268,11 +273,6 @@
   <p class="hero-location">Разград, България</p>
 
   <button type="button" class="btn-wine hero-cta" data-open-rsvp>Потвърдете присъствие</button>
-
-  <div class="scroll-hint">
-    <span>Програма</span>
-    <svg width="16" height="22" viewBox="0 0 16 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v16M2 14l6 6 6-6"/></svg>
-  </div>
 </div>
 
 <!-- ═══════════════ COUNTDOWN ═══════════════ -->
@@ -339,12 +339,9 @@
   </div>
 </section>
 
-<div class="ornament">· · ·</div>
-
 <!-- ═══════════════ VENUES ═══════════════ -->
 <section id="venues">
-  <p class="section-eyebrow reveal">Локации</p>
-  <h2 class="section-title reveal">Където ще се срещнем</h2>
+  <h2 class="section-title reveal">Къде ще се срещнем?</h2>
   <div class="gold-rule reveal"></div>
 
   <div class="venue-card reveal">
@@ -356,7 +353,7 @@
   </div>
 
   <div class="venue-card reveal">
-    <span class="v-icon">🥩</span>
+    <img class="v-logo" src="soho.jpg" alt="Steak House SOHO" />
     <h3>Steak House SOHO</h3>
     <p>Коктейл &amp; Трапеза · от 19:30 ч.</p>
     <p class="v-address">гр. Разград, до храма</p>
@@ -369,7 +366,6 @@
 <!-- ═══════════════ RSVP CTA BAND ═══════════════ -->
 <div class="rsvp-section" id="rsvp">
   <div class="rsvp-band">
-    <p class="section-eyebrow reveal">Потвърждение</p>
     <h2 class="section-title reveal" style="margin-bottom:1.5rem;">Ще бъдете ли с нас?</h2>
     <div class="gold-rule reveal"></div>
     <p class="rsvp-intro reveal">Молим, потвърдете присъствието си навреме, за да подготвим всичко за Вас.</p>
@@ -381,7 +377,6 @@
 
 <!-- ═══════════════ NOTE ═══════════════ -->
 <section id="note" style="text-align:center; padding-top: 3rem; padding-bottom: 3rem;">
-  <p class="section-eyebrow reveal">Бележка</p>
   <h2 class="section-title reveal" style="font-size:1.9rem;">Малко пожелание</h2>
   <div class="gold-rule reveal"></div>
   <p class="reveal" style="font-style:italic; color:var(--muted); font-size:1.1rem; max-width:430px; margin:0 auto; line-height:1.9;">
@@ -451,7 +446,7 @@
         <p class="field-hint" id="guestHint">Впишете имената на всички, които ще дойдат с Вас.</p>
         <div id="guestList">
           <div class="guest-row">
-            <input type="text" class="input guest-name" placeholder="Име и фамилия" />
+            <input type="text" class="input guest-name" placeholder="Име" />
             <button type="button" class="guest-remove hidden" aria-label="Премахни">×</button>
           </div>
         </div>
@@ -468,14 +463,14 @@
       <div class="check">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#b08d57" stroke-width="1.5"><path d="M6 14.5l5 5 11-12"/></svg>
       </div>
-      <h3 id="successTitle">Благодарим Ви от сърце!</h3>
+      <h3 id="successTitle">Благодарим Ви!</h3>
       <p id="successText">Получихме Вашето потвърждение. Очакваме Ви с нетърпение. 🤍</p>
     </div>
   </div>
 </div>
 
 <script>
-  const WEB3FORMS_ACCESS_KEY = "cbb5cc4b-8266-4fb5-a165-d61ead73504eKEY";
+  const WEB3FORMS_ACCESS_KEY = "cbb5cc4b-8266-4fb5-a165-d61ead73504e";
 
   // ── Countdown (към венчавката · 17:00) ─────────────────────────
   const target = new Date('2026-09-06T17:00:00');
