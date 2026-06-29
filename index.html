@@ -4,440 +4,531 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Ростислава & Недко · 06.09.2026</title>
+  <meta name="theme-color" content="#F7F3F2" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:    #f5f0e8;
-      --ivory:    #faf7f2;
-      --warm:     #e6dcc8;
-      --gold:     #b08d57;
-      --gold-lt:  #d4af75;
-      --gold-deep:#8a6726;
-      --wine:     #6b2737;
-      --wine-lt:  #8a3347;
-      --text:     #241a12;
-      --muted:    #574734;
+      --bg:        #f7f3f2;
+      --bg-soft:   #fbf8f7;
+      --card:      #ffffff;
+      --rose:      #a56c72;   /* primary rose-gold */
+      --rose-deep: #8e555b;   /* hover / pressed   */
+      --accent:    #c8969a;   /* lighter accent    */
+      --text:      #2f2f2f;
+      --muted:     #6f6062;
+      --faint:     #9a8a8c;
+      --hair:      rgba(165,108,114,0.16);
+      --hair-soft: rgba(165,108,114,0.10);
+      --shadow:    0 24px 60px -32px rgba(95,60,64,0.40);
+      --shadow-sm: 0 12px 34px -22px rgba(95,60,64,0.35);
+
+      --r-pill: 999px;
+      --r-card: 32px;
+      --r-input: 20px;
+
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--ivory);
+      background: var(--bg);
       color: var(--text);
-      font-family: 'EB Garamond', serif;
-      font-size: 18px;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-size: 16px;
       line-height: 1.7;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
       overflow-x: hidden;
       -webkit-text-size-adjust: 100%;
     }
     body.modal-open { overflow: hidden; }
 
-    /* ─── REVEAL ─────────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1 !important; transform: none !important; transition: none; }
-      *, *::before, *::after { animation-duration: 0.001ms !important; }
+    /* ── Fine paper grain (≈3% opacity, fixed) ───────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* ─── BUTTONS ────────────────────────────────────── */
-    .btn-wine {
-      display: inline-block;
-      padding: 0.95rem 2.4rem;
-      background: var(--wine); color: #fff;
-      font-family: 'Cinzel', serif;
+    /* ── Page wrapper ────────────────────────────────────── */
+    .page { position: relative; z-index: 1; }
+    .page > * { position: relative; z-index: 1; }
+
+    /* ── Typography helpers ──────────────────────────────── */
+    .display {
+      font-family: 'Cormorant', Georgia, serif;
+      font-weight: 300;
+      letter-spacing: 0.005em;
+      color: var(--text);
+    }
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
       font-size: 0.66rem; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none;
-      border: 1px solid var(--wine); cursor: pointer; border-radius: 2px;
-      transition: background 0.25s, color 0.25s, transform 0.25s;
+      letter-spacing: 0.34em; text-transform: uppercase;
+      color: var(--rose);
     }
-    .btn-wine:hover { background: transparent; color: var(--wine); transform: translateY(-2px); }
+    .meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem; font-weight: 400;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--muted);
+    }
 
-    /* ─── HERO ───────────────────────────────────────── */
+    /* ── Reveal on scroll ────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+    }
+
+    section { padding: 6rem 1.6rem; max-width: 560px; margin: 0 auto; }
+
+    /* ═══════════ HERO ═══════════ */
     .hero {
-      min-height: 100svh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 3rem 1.5rem 2rem;
-      position: relative;
-      background: radial-gradient(120% 80% at 50% 0%, #fbf8f2 0%, var(--cream) 55%, #ece2cf 100%);
-      overflow: hidden;
+      text-align: center; padding: 4rem 1.6rem 3rem; max-width: none;
     }
-    .hero::before, .hero::after {
-      content: ''; position: absolute; width: 240px; height: 240px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23b08d57' stroke-width='0.8' opacity='0.5'%3E%3Cellipse cx='100' cy='180' rx='6' ry='22' transform='rotate(-20 100 180)'/%3E%3Cellipse cx='100' cy='180' rx='6' ry='22' transform='rotate(20 100 180)'/%3E%3Cellipse cx='100' cy='175' rx='5' ry='18' transform='rotate(-50 100 175)'/%3E%3Cellipse cx='100' cy='175' rx='5' ry='18' transform='rotate(50 100 175)'/%3E%3Cellipse cx='100' cy='170' rx='4' ry='14' transform='rotate(-80 100 170)'/%3E%3Cellipse cx='100' cy='170' rx='4' ry='14' transform='rotate(80 100 170)'/%3E%3Cpath d='M100 190 Q90 160 100 130 Q110 160 100 190' stroke-width='1'/%3E%3Ccircle cx='100' cy='128' r='5'/%3E%3Ccircle cx='83' cy='150' r='4'/%3E%3Ccircle cx='117' cy='150' r='4'/%3E%3Cpath d='M60 170 Q70 155 85 148'/%3E%3Cpath d='M140 170 Q130 155 115 148'/%3E%3Cpath d='M50 180 Q62 165 78 160'/%3E%3Cpath d='M150 180 Q138 165 122 160'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: contain; background-repeat: no-repeat; pointer-events: none;
+    .hero .eyebrow { opacity: 0; animation: rise 1.1s var(--ease) 0.15s forwards; margin-bottom: 2.4rem; }
+    .hero-names { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; }
+    .hero-names .nm {
+      font-family: 'Cormorant', serif; font-weight: 300;
+      font-size: clamp(3.4rem, 19vw, 6.2rem); line-height: 0.98;
+      color: var(--rose-deep); letter-spacing: 0.01em;
+      opacity: 0; animation: rise 1.2s var(--ease) forwards;
     }
-    .hero::before { top: -10px; left: -10px; transform: rotate(135deg); }
-    .hero::after  { bottom: -10px; right: -10px; transform: rotate(-45deg); }
-
-    .monogram { width: 92px; height: 92px; margin-bottom: 1.4rem; opacity: 0; animation: fadeUp 1s ease 0.1s forwards; }
-    .monogram svg { width: 100%; height: 100%; display: block; }
-
-    .hero-top-line {
-      font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 500;
-      letter-spacing: 0.32em; color: var(--gold-deep); text-transform: uppercase;
-      margin-bottom: 1.8rem; opacity: 0; animation: fadeUp 1s ease 0.2s forwards;
+    .hero-names .nm:nth-child(1) { animation-delay: 0.3s; }
+    .hero-names .nm:nth-child(3) { animation-delay: 0.62s; }
+    .hero-names .cross {
+      font-family: 'Cormorant', serif; font-weight: 300; font-style: italic;
+      font-size: clamp(1.4rem, 6vw, 2.2rem); color: var(--accent);
+      margin: 0.55rem 0; opacity: 0; animation: rise 1.2s var(--ease) 0.46s forwards;
     }
-    .hero-ampersand {
-      font-family: 'Cormorant Garamond', serif; font-style: italic;
-      font-size: clamp(5rem, 18vw, 10rem); font-weight: 300; color: var(--gold-lt);
-      line-height: 1; position: absolute; opacity: 0.15; pointer-events: none;
-      top: 50%; left: 50%; transform: translate(-50%, -54%);
+    .hero-date {
+      margin-top: 2.6rem; opacity: 0; animation: rise 1.1s var(--ease) 0.9s forwards;
     }
-    .hero-names { position: relative; opacity: 0; animation: fadeUp 1s ease 0.4s forwards; }
-    .hero-names h1 {
-      font-family: 'Cormorant Garamond', serif; font-weight: 400;
-      font-size: clamp(2.8rem, 10vw, 5.5rem); line-height: 1.05; letter-spacing: 0.02em; color: var(--wine);
+    .hero-date .d { font-family: 'Cormorant', serif; font-weight: 400; font-size: 1.5rem; letter-spacing: 0.18em; color: var(--rose); }
+    .hero-loc { margin-top: 2rem; opacity: 0; animation: rise 1.1s var(--ease) 1.05s forwards; }
+
+    .scroll-cue {
+      position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+      opacity: 0; animation: rise 1.1s var(--ease) 1.5s forwards;
     }
-    .hero-names h1 span { display: block; }
-    .hero-names .connector { font-style: italic; font-size: 0.45em; color: var(--gold-deep); display: block; letter-spacing: 0.15em; margin: 0.2em 0; }
-
-    .hero-divider { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 2rem auto; opacity: 0; animation: fadeUp 1s ease 0.6s forwards; }
-    .hero-date { font-family: 'Cinzel', serif; font-size: clamp(0.78rem, 2.5vw, 0.92rem); font-weight: 500; letter-spacing: 0.25em; color: var(--wine); opacity: 0; animation: fadeUp 1s ease 0.8s forwards; }
-    .hero-location { margin-top: 0.6rem; font-style: italic; font-size: 1.1rem; color: var(--muted); opacity: 0; animation: fadeUp 1s ease 1s forwards; }
-    .hero-cta { margin-top: 2rem; opacity: 0; animation: fadeUp 1s ease 1.2s forwards; }
-
-    .scroll-hint { position: absolute; bottom: 1.4rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; color: var(--gold-deep); opacity: 0; animation: fadeUp 1s ease 1.6s forwards; }
-    .scroll-hint span { font-family: 'Cinzel', serif; font-size: 0.58rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; }
-    .scroll-hint svg { animation: bounce 2s ease-in-out infinite; }
-
-    /* ─── COUNTDOWN ──────────────────────────────────── */
-    .countdown-section { background: linear-gradient(135deg, var(--wine) 0%, #581f2c 60%, var(--wine-lt) 130%); padding: 3.2rem 1.5rem; text-align: center; }
-    .countdown-label { font-family: 'Cinzel', serif; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; color: var(--gold-lt); text-transform: uppercase; margin-bottom: 1.5rem; }
-    .countdown-grid { display: flex; justify-content: center; gap: 1.4rem; flex-wrap: wrap; }
-    .countdown-unit { display: flex; flex-direction: column; align-items: center; min-width: 62px; }
-    .countdown-unit .num { font-family: 'Cormorant Garamond', serif; font-size: 3.1rem; font-weight: 400; color: #fff; line-height: 1; }
-    .countdown-unit .lbl { font-family: 'Cinzel', serif; font-size: 0.54rem; font-weight: 500; letter-spacing: 0.22em; color: var(--gold-lt); text-transform: uppercase; margin-top: 0.35rem; }
-    .countdown-sep { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--gold-lt); line-height: 1.2; align-self: flex-start; padding-top: 0.15rem; }
-
-    .cal-trigger {
-      display: inline-flex; align-items: center; gap: 0.55rem; margin-top: 2rem;
-      padding: 0.85rem 1.8rem; background: transparent; border: 1px solid var(--gold-lt); color: #fff;
-      font-family: 'Cinzel', serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
-      cursor: pointer; border-radius: 2px; transition: background 0.25s, color 0.25s;
+    .scroll-cue .ln {
+      width: 1px; height: 38px;
+      background: linear-gradient(var(--rose), transparent);
+      animation: cueMove 2.4s ease-in-out infinite;
     }
-    .cal-trigger:hover { background: var(--gold-lt); color: var(--wine); }
-    .cal-trigger svg { width: 16px; height: 16px; }
+    .scroll-cue .lbl { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--faint); }
 
-    /* ─── SECTIONS ───────────────────────────────────── */
-    section { padding: 5rem 1.5rem; max-width: 640px; margin: 0 auto; }
-    .section-eyebrow { font-family: 'Cinzel', serif; font-size: 0.64rem; font-weight: 500; letter-spacing: 0.32em; color: var(--gold-deep); text-transform: uppercase; text-align: center; margin-bottom: 0.8rem; }
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.9rem, 6vw, 2.8rem); font-weight: 400; text-align: center; color: var(--wine); margin-bottom: 3rem; line-height: 1.2; }
-    .gold-rule { width: 50px; height: 1px; background: var(--gold); margin: 0 auto 3rem; }
+    /* ═══════════ QUOTE ═══════════ */
+    .quote { text-align: center; padding-top: 0; padding-bottom: 4rem; }
+    .quote p {
+      font-family: 'Cormorant', serif; font-style: italic; font-weight: 300;
+      font-size: clamp(1.7rem, 6.5vw, 2.5rem); line-height: 1.5; color: var(--text);
+      letter-spacing: 0.005em;
+    }
+    .quote .em { font-weight: bold; color: var(--rose); }
 
-    /* ─── TIMELINE ───────────────────────────────────── */
-    .timeline { position: relative; padding-left: 2.5rem; }
-    .timeline::before { content: ''; position: absolute; left: 0.55rem; top: 6px; bottom: 6px; width: 1px; background: linear-gradient(to bottom, transparent, var(--gold-lt) 10%, var(--gold-lt) 90%, transparent); }
-    .tl-item { position: relative; margin-bottom: 2.5rem; opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .tl-item.visible { opacity: 1; transform: none; }
-    .tl-dot { position: absolute; left: -2.5rem; top: 0.35rem; width: 13px; height: 13px; border-radius: 50%; background: var(--ivory); border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; }
-    .tl-dot::after { content: ''; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; }
-    .tl-time { font-family: 'Cinzel', serif; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold-deep); text-transform: uppercase; margin-bottom: 0.25rem; }
-    .tl-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--wine); margin-bottom: 0.3rem; line-height: 1.2; }
-    .tl-desc { font-size: 0.98rem; color: var(--muted); line-height: 1.65; }
-    .tl-icon { display: inline-block; margin-right: 0.4rem; }
+    /* ═══════════ COUNTDOWN ═══════════ */
+    .countdown { text-align: center; padding-top: 3rem; padding-bottom: 3rem; }
+    .cd-ring-wrap { position: relative; width: 230px; height: 230px; margin: 0 auto; }
+    .cd-ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .cd-ring .track { fill: none; stroke: var(--hair); stroke-width: 1.5; }
+    .cd-ring .prog  { fill: none; stroke: var(--rose); stroke-width: 1.5; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+    .cd-center {
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .cd-days { font-family: 'Cormorant', serif; font-weight: 300; font-size: 5rem; line-height: 1; color: var(--text); }
+    .cd-days-lbl { font-size: 0.64rem; letter-spacing: 0.36em; text-transform: uppercase; color: var(--rose); margin-top: 0.5rem; }
+    .cd-clock {
+      margin-top: 2.2rem; font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 0.92rem; letter-spacing: 0.3em; color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .cd-clock b { font-weight: 500; color: var(--text); }
+    .cd-done { font-family: 'Cormorant', serif; font-style: italic; font-size: 2rem; color: var(--rose); }
 
-    /* ─── VENUE CARD ─────────────────────────────────── */
-    .venue-card { background: var(--cream); border: 1px solid var(--warm); border-radius: 4px; padding: 2.5rem 2rem; text-align: center; margin-bottom: 2rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .venue-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -24px rgba(107,39,55,0.45); }
-    .venue-card .v-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
-    .venue-card .v-logo { width: 160px; max-width: 65%; height: auto; display: block; margin: 0 auto 1rem; border-radius: 10px; background: #fff; padding: 0.5rem; box-shadow: 0 6px 18px -10px rgba(107,39,55,0.35); }
-    .venue-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--wine); margin-bottom: 0.5rem; }
-    .venue-card p { font-size: 1rem; color: var(--muted); }
-    .venue-card .v-address { margin-top: 0.8rem; font-style: italic; font-size: 0.95rem; color: var(--muted); }
-    .map-btn { display: inline-block; margin-top: 1.3rem; padding: 0.65rem 1.7rem; border: 1px solid var(--gold); color: var(--gold-deep); font-family: 'Cinzel', serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, color 0.2s; }
-    .map-btn:hover { background: var(--gold); color: #fff; }
+    /* ═══════════ SECTION HEADINGS ═══════════ */
+    .sec-head { text-align: center; margin-bottom: 3.4rem; }
+    .sec-head .eyebrow { display: block; margin-bottom: 0.9rem; }
+    .sec-head h2 { font-family: 'Cormorant', serif; font-weight: 300; font-size: clamp(2rem, 8vw, 2.9rem); color: var(--text); line-height: 1.1; }
 
-    /* ─── RSVP CTA BAND ──────────────────────────────── */
-    .rsvp-section { background: var(--cream); }
-    .rsvp-band { max-width: 640px; margin: 0 auto; padding: 5rem 1.5rem; text-align: center; }
-    .rsvp-band .rsvp-intro { font-style: italic; color: var(--muted); font-size: 1.1rem; max-width: 440px; margin: 0 auto 2rem; }
+    /* ═══════════ PROGRAM ═══════════ */
+    .timeline { position: relative; padding-left: 2.2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 4px; top: 8px; bottom: 8px; width: 1px;
+      background: linear-gradient(var(--hair-soft), var(--hair) 12%, var(--hair) 88%, var(--hair-soft));
+    }
+    .tl { position: relative; padding-bottom: 2.7rem; }
+    .tl:last-child { padding-bottom: 0; }
+    .tl::before {
+      content: ''; position: absolute; left: calc(-2.2rem + 1px); top: 0.55rem;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--bg); border: 1.5px solid var(--rose);
+    }
+    .tl .t { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; color: var(--rose); }
+    .tl h3 { font-family: 'Cormorant', serif; font-weight: 500; font-size: 1.6rem; color: var(--text); line-height: 1.15; margin: 0.25rem 0 0.4rem; }
+    .tl p { font-size: 0.92rem; color: var(--muted); line-height: 1.65; max-width: 38ch; }
 
-    /* ─── FORM FIELDS (used inside modal) ────────────── */
-    .field { margin-bottom: 1.8rem; text-align: left; }
-    .field-label { display: block; font-family: 'Cinzel', serif; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--wine); margin-bottom: 0.7rem; }
-    .field-hint { font-style: italic; font-size: 0.9rem; color: var(--muted); margin-bottom: 0.7rem; }
-    .input { width: 100%; background: #fff; border: 1px solid var(--warm); border-radius: 5px; padding: 0.85rem 0.9rem; font-family: 'EB Garamond', serif; font-size: 1.05rem; color: var(--text); transition: border-color 0.25s, box-shadow 0.25s; }
-    .input::placeholder { color: #8c7c64; font-style: italic; }
-    .input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(176,141,87,0.15); }
+    /* ═══════════ VENUES ═══════════ */
+    .v-card {
+      background: var(--card); border: 1px solid var(--hair-soft); border-radius: var(--r-card);
+      padding: 2.4rem 2rem; text-align: center; box-shadow: var(--shadow-sm);
+      margin-bottom: 1.4rem; transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    }
+    .v-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .v-logo { width: 132px; max-width: 60%; height: auto; display: block; margin: 0 auto 1.1rem; border-radius: 18px; }
+    .v-when { display: block; margin-bottom: 0.6rem; }
+    .v-card h3 { font-family: 'Cormorant', serif; font-weight: 500; font-size: 1.5rem; color: var(--text); }
+    .v-addr { font-size: 0.9rem; color: var(--muted); margin-top: 0.35rem; }
+    .v-map {
+      display: inline-block; margin-top: 1.4rem; padding: 0.7rem 1.7rem;
+      border: 1px solid var(--hair); border-radius: var(--r-pill);
+      font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--rose); text-decoration: none; transition: all 0.25s var(--ease);
+    }
+    .v-map:hover { background: var(--rose); border-color: var(--rose); color: #fff; }
 
-    .attend-toggle { display: flex; gap: 0.8rem; }
-    .attend-btn { flex: 1; min-height: 54px; padding: 0.9rem 0.6rem; background: #fff; border: 1px solid var(--warm); color: var(--muted); font-family: 'Cinzel', serif; font-size: 0.64rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 5px; transition: all 0.22s ease; }
-    .attend-btn:hover { border-color: var(--gold); color: var(--wine); }
-    .attend-btn.active { background: var(--wine); border-color: var(--wine); color: #fff; }
-    .attend-btn.active[data-val="no"] { background: var(--muted); border-color: var(--muted); }
+    /* ═══════════ BIG ACTIONS (RSVP / CAL) ═══════════ */
+    .action-block { text-align: center; }
+    .action-block .lead {
+      font-family: 'Cormorant', serif; font-style: italic; font-weight: 300;
+      font-size: 1.25rem; color: var(--muted); max-width: 34ch; margin: 0 auto 2.2rem; line-height: 1.6;
+    }
+    .pill {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+      min-height: 64px; padding: 0 2.8rem;
+      background: var(--rose); color: #fff; border: 1px solid var(--rose);
+      border-radius: var(--r-pill); cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s var(--ease), background 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    }
+    .pill:hover { background: var(--rose-deep); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .pill:active { transform: scale(0.98); }
 
-    .guest-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem; }
+    /* Calendar card */
+    .cal-card {
+      display: flex; align-items: center; gap: 1.2rem; width: 100%;
+      background: var(--card); border: 1px solid var(--hair-soft); border-radius: var(--r-card);
+      padding: 1.7rem 1.8rem; box-shadow: var(--shadow-sm); cursor: pointer; text-align: left;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    }
+    .cal-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .cal-ic {
+      flex: 0 0 auto; width: 54px; height: 54px; border-radius: 18px;
+      background: rgba(165,108,114,0.10); display: flex; align-items: center; justify-content: center; color: var(--rose);
+    }
+    .cal-ic svg { width: 26px; height: 26px; }
+    .cal-tx .a { font-family: 'Cormorant', serif; font-weight: 500; font-size: 1.3rem; color: var(--text); line-height: 1.2; }
+    .cal-tx .b { font-size: 0.84rem; color: var(--muted); margin-top: 0.15rem; }
+    .cal-card .chev { margin-left: auto; color: var(--faint); }
+
+    /* ═══════════ NOTE (speech bubble) ═══════════ */
+    .note-wrap { padding-top: 3rem; padding-bottom: 3rem; }
+    .bubble {
+      position: relative; background: var(--card); border: 1px solid var(--hair-soft);
+      border-radius: var(--r-card); padding: 2.6rem 2.2rem; box-shadow: var(--shadow-sm); text-align: center;
+    }
+    .bubble::after {
+      content: ''; position: absolute; bottom: -13px; left: 50%; transform: translateX(-50%) rotate(45deg);
+      width: 24px; height: 24px; background: var(--card);
+      border-right: 1px solid var(--hair-soft); border-bottom: 1px solid var(--hair-soft);
+      border-bottom-right-radius: 6px;
+    }
+    .bubble p { font-family: 'Cormorant', serif; font-style: italic; font-weight: 300; font-size: 1.4rem; line-height: 1.7; color: var(--muted); }
+    .bubble .hl { color: var(--rose); font-style: normal; font-weight: 500; }
+
+    /* ═══════════ FOOTER ═══════════ */
+    .site-footer { background-color: rgba(165, 108, 114, 0.10); position: relative; text-align: center; padding: 5rem 1.6rem 4rem; }
+    .site-footer .fe { display: block; margin-bottom: 1.1rem; }
+    .site-footer .fn { font-family: 'Cormorant', serif; font-weight: 300; font-size: 2.4rem; color: var(--rose-deep); letter-spacing: 0.02em; }
+    .site-footer .fn .x { font-style: italic; color: var(--accent); font-size: 0.7em; margin: 0 0.2em; }
+    .site-footer .fd { margin-top: 0.8rem; }
+
+    /* ═══════════ MODALS ═══════════ */
+    .overlay {
+      position: fixed; inset: 0; z-index: 1000; padding: 1rem;
+      background: rgba(47,47,47,0.42); backdrop-filter: blur(3px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s var(--ease);
+    }
+    .overlay.show { opacity: 1; }
+    .sheet {
+      position: relative; width: 100%; background: var(--bg-soft);
+      border-radius: var(--r-card); box-shadow: 0 40px 90px -30px rgba(47,30,32,0.5);
+      transform: translateY(18px) scale(0.99); transition: transform 0.34s var(--ease);
+    }
+    .overlay.show .sheet { transform: none; }
+    .sheet-x {
+      position: absolute; top: 0.7rem; right: 0.9rem; z-index: 2;
+      width: 42px; height: 42px; border: none; background: transparent; color: var(--faint);
+      font-size: 1.7rem; line-height: 1; cursor: pointer; border-radius: 50%; transition: color 0.2s;
+    }
+    .sheet-x:hover { color: var(--rose); }
+
+    .sheet-cal { margin: 1rem; max-width: 380px; padding: 2.4rem 1.7rem 1.9rem; text-align: center; }
+    .sheet-cal h3 { font-family: 'Cormorant', serif; font-weight: 400; font-size: 1.7rem; color: var(--text); margin-bottom: 0.3rem; }
+    .sheet-cal .sub { margin-bottom: 1.5rem; }
+    .cal-opt {
+      display: flex; align-items: center; gap: 0.8rem; width: 100%; min-height: 58px;
+      padding: 1rem 1.2rem; margin-top: 0.8rem;
+      background: var(--card); border: 1px solid var(--hair-soft); border-radius: var(--r-input);
+      color: var(--text); text-decoration: none;
+      font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.04em;
+      transition: all 0.22s var(--ease);
+    }
+    .cal-opt:hover { border-color: var(--rose); background: #fff; transform: translateY(-1px); }
+    .cal-opt svg { width: 20px; height: 20px; color: var(--rose); flex: 0 0 auto; }
+
+    .sheet-rsvp { margin: 1rem; max-width: 460px; max-height: 92vh; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 2.8rem 1.9rem 2.1rem; }
+    .sheet-rsvp .sec-head { margin-bottom: 1.8rem; }
+    .sheet-rsvp .rsvp-intro { text-align: center; font-family: 'Cormorant', serif; font-style: italic; font-size: 1.15rem; color: var(--muted); margin-bottom: 1.9rem; line-height: 1.55; }
+
+    .field { margin-bottom: 1.7rem; text-align: left; }
+    .field-label { display: block; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.8rem; }
+    .field-hint { font-family: 'Cormorant', serif; font-style: italic; font-size: 1rem; color: var(--muted); margin-bottom: 0.8rem; }
+
+    .input {
+      width: 100%; background: var(--card); border: 1px solid var(--hair-soft); border-radius: var(--r-input);
+      padding: 0.95rem 1.1rem; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 300; color: var(--text);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .input::placeholder { color: var(--faint); }
+    .input:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 4px rgba(165,108,114,0.12); }
+
+    .attend { display: flex; gap: 0.8rem; }
+    .attend-btn {
+      flex: 1; min-height: 56px; padding: 0.9rem 0.6rem;
+      background: var(--card); border: 1px solid var(--hair-soft); border-radius: var(--r-pill);
+      color: var(--muted); font-family: 'Inter', sans-serif; font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.22s var(--ease);
+    }
+    .attend-btn:hover { border-color: var(--rose); color: var(--rose); }
+    .attend-btn.on { background: var(--rose); border-color: var(--rose); color: #fff; }
+    .attend-btn.on[data-val="no"] { background: var(--muted); border-color: var(--muted); }
+
+    .guest-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.85rem; }
     .guest-row .input { flex: 1; }
-    .guest-remove { width: 40px; height: 40px; flex: 0 0 auto; border: 1px solid var(--warm); background: #fff; color: var(--muted); border-radius: 50%; font-size: 1.3rem; line-height: 1; cursor: pointer; transition: all 0.2s; }
-    .guest-remove:hover { border-color: var(--wine); color: var(--wine); }
-    .add-guest { background: transparent; border: none; color: var(--gold-deep); font-family: 'Cinzel', serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; padding: 0.5rem 0; min-height: 40px; transition: color 0.2s; }
-    .add-guest:hover { color: var(--wine); }
+    .guest-rm {
+      width: 44px; height: 44px; flex: 0 0 auto; border: 1px solid var(--hair-soft); background: var(--card);
+      color: var(--faint); border-radius: 50%; font-size: 1.3rem; line-height: 1; cursor: pointer; transition: all 0.2s;
+    }
+    .guest-rm:hover { border-color: var(--rose); color: var(--rose); }
+    .add-guest {
+      background: transparent; border: none; color: var(--rose); cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.6rem 0; min-height: 42px; transition: color 0.2s;
+    }
+    .add-guest:hover { color: var(--rose-deep); }
 
-    .rsvp-submit { width: 100%; margin-top: 0.5rem; min-height: 56px; padding: 1rem; background: var(--wine); border: 1px solid var(--wine); color: #fff; font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; border-radius: 5px; transition: background 0.25s; }
-    .rsvp-submit:hover:not(:disabled) { background: var(--wine-lt); }
-    .rsvp-submit:disabled { opacity: 0.6; cursor: default; }
-    .form-error { margin-top: 1rem; color: var(--wine-lt); font-size: 0.95rem; font-style: italic; text-align: center; min-height: 1.2em; }
-    .hp-field { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+    .rsvp-send {
+      width: 100%; margin-top: 0.5rem; min-height: 60px; padding: 1rem;
+      background: var(--rose); border: 1px solid var(--rose); border-radius: var(--r-pill); color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.25s, transform 0.2s;
+    }
+    .rsvp-send:hover:not(:disabled) { background: var(--rose-deep); }
+    .rsvp-send:active:not(:disabled) { transform: scale(0.99); }
+    .rsvp-send:disabled { opacity: 0.6; cursor: default; }
+
+    .form-error { margin-top: 1rem; font-family: 'Cormorant', serif; font-style: italic; color: var(--rose-deep); font-size: 1rem; text-align: center; min-height: 1.3em; }
+    .hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
     .hidden { display: none !important; }
 
-    .rsvp-success { text-align: center; padding: 1rem 0.5rem; }
-    .rsvp-success .check { width: 64px; height: 64px; margin: 0 auto 1.4rem; border-radius: 50%; border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; }
-    .rsvp-success h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 500; color: var(--wine); margin-bottom: 0.6rem; }
-    .rsvp-success p { color: var(--muted); font-style: italic; font-size: 1.05rem; }
+    .rsvp-ok { text-align: center; padding: 1.2rem 0.5rem; }
+    .rsvp-ok .check { width: 66px; height: 66px; margin: 0 auto 1.4rem; border-radius: 50%; border: 1.5px solid var(--rose); display: flex; align-items: center; justify-content: center; }
+    .rsvp-ok h3 { font-family: 'Cormorant', serif; font-weight: 400; font-size: 1.9rem; color: var(--text); margin-bottom: 0.5rem; }
+    .rsvp-ok p { font-family: 'Cormorant', serif; font-style: italic; color: var(--muted); font-size: 1.1rem; }
 
-    /* ─── MODALS (calendar + rsvp) ───────────────────── */
-    .overlay { position: fixed; inset: 0; background: rgba(36,26,18,0.55); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; opacity: 0; transition: opacity 0.25s ease; }
-    .overlay.show { opacity: 1; }
-    .sheet { position: relative; background: var(--ivory); border: 1px solid var(--warm); border-radius: 12px; width: 100%; box-shadow: 0 30px 80px -28px rgba(0,0,0,0.55); transform: translateY(16px); transition: transform 0.28s ease; }
-    .overlay.show .sheet { transform: none; }
-    .sheet-close { position: absolute; top: 0.6rem; right: 0.8rem; width: 40px; height: 40px; border: none; background: transparent; color: var(--muted); font-size: 1.6rem; line-height: 1; cursor: pointer; border-radius: 50%; transition: color 0.2s; z-index: 2; }
-    .sheet-close:hover { color: var(--wine); }
+    @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    @keyframes cueMove { 0%,100% { transform: scaleY(1); transform-origin: top; opacity: 0.7; } 50% { transform: scaleY(1.3); opacity: 1; } }
 
-    .sheet-cal { max-width: 400px; padding: 2.2rem 1.6rem 1.8rem; text-align: center; }
-    .sheet-cal h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.7rem; color: var(--wine); margin-bottom: 0.25rem; }
-    .cal-sub { font-family: 'Cinzel', serif; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 1.4rem; }
-    .cal-opt { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; min-height: 56px; padding: 1rem; margin-top: 0.8rem; border: 1px solid var(--warm); border-radius: 8px; background: #fff; color: var(--wine); text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; }
-    .cal-opt:hover, .cal-opt:active { border-color: var(--gold); background: var(--cream); }
-    .cal-opt svg { width: 18px; height: 18px; flex: 0 0 auto; }
-
-    .sheet-rsvp { max-width: 480px; max-height: 92vh; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 2.6rem 1.8rem 2rem; }
-    .sheet-rsvp .section-eyebrow { margin-bottom: 0.6rem; }
-    .sheet-rsvp .section-title { font-size: clamp(1.7rem, 6vw, 2.2rem); margin-bottom: 1.2rem; }
-    .sheet-rsvp .gold-rule { margin-bottom: 1.8rem; }
-    .sheet-rsvp .rsvp-intro { text-align: center; font-style: italic; color: var(--muted); font-size: 1.02rem; margin-bottom: 1.8rem; }
-
+    /* ── Mobile bottom-sheet for modals ──────────────────── */
     @media (max-width: 520px) {
+      section { padding: 1.5rem 1rem; }
       .overlay { align-items: flex-end; padding: 0; }
-      .sheet { transform: translateY(100%); border-radius: 20px 20px 0 0; }
+      .sheet { transform: translateY(100%); border-radius: 26px 26px 0 0; }
       .overlay.show .sheet { transform: none; }
-      .sheet-cal { max-width: none; padding: 2.2rem 1.4rem calc(2rem + env(safe-area-inset-bottom)); }
-      .sheet-rsvp { max-width: none; max-height: 94vh; padding: 2.4rem 1.4rem calc(1.6rem + env(safe-area-inset-bottom)); }
-
-      /* RSVP формата: центриран pop-up на 90% ширина, за да се вижда рамката */
-      #rsvpModal.overlay { align-items: center; padding: 0; }
-      #rsvpModal .sheet { width: 90%; border-radius: 14px; transform: translateY(16px); }
-      #rsvpModal.overlay.show .sheet { transform: none; }
-      #rsvpModal .sheet-rsvp { max-height: 88vh; padding: 2.4rem 1.4rem 2rem; }
+      .sheet-cal { max-width: none; padding: 2.4rem 1.5rem calc(1.9rem + env(safe-area-inset-bottom)); }
+      .sheet-rsvp { max-width: none; max-height: 94vh; padding: 2.6rem 1.5rem calc(1.8rem + env(safe-area-inset-bottom)); }
     }
-
-    /* ─── FOOTER ─────────────────────────────────────── */
-    footer { background: linear-gradient(135deg, var(--wine) 0%, #581f2c 70%, var(--wine-lt) 130%); color: rgba(255,255,255,0.82); text-align: center; padding: 3.5rem 1.5rem; }
-    footer .f-monogram { margin-bottom: 1.2rem; }
-    footer .f-monogram svg { width: 64px; height: 64px; }
-    footer .f-names { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 2.1rem; color: #fff; margin-bottom: 0.5rem; }
-    footer .f-date { font-family: 'Cinzel', serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.28em; color: var(--gold-lt); text-transform: uppercase; margin-bottom: 2rem; }
-    footer p { font-size: 0.95rem; line-height: 1.8; }
-
-    .ornament { text-align: center; padding: 0.5rem 0; color: var(--gold); font-size: 1.2rem; letter-spacing: 0.6rem; opacity: 0.6; }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
-
-    @media (max-width: 400px) {
-      .countdown-sep { display: none; }
-      .attend-toggle { flex-direction: column; }
-      section { padding: 4rem 1.3rem; }
+    @media (max-width: 380px) {
+      .attend { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════ HERO ═══════════════ -->
-<div class="hero">
-  <div class="hero-ampersand">&</div>
+<div class="page">
 
-  <div class="monogram" aria-hidden="true">
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="60" cy="60" r="56" fill="none" stroke="#b08d57" stroke-width="1"/>
-      <circle cx="60" cy="60" r="49" fill="none" stroke="#b08d57" stroke-width="0.5" opacity="0.5"/>
-      <text x="60" y="72" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="42" font-style="italic" fill="#6b2737">Р<tspan font-size="26" fill="#b08d57" dx="2" dy="-2">&amp;</tspan><tspan dy="2" dx="2">Н</tspan></text>
-    </svg>
-  </div>
-
-  <div class="hero-names">
-    <h1>
-      <span>Ростислава</span>
-      <span class="connector">& </span>
-      <span>Недко</span>
-    </h1>
-  </div>
-
-  <div class="hero-divider"></div>
-
-  <p class="hero-date">06 · IX · 2026</p>
-  <p class="hero-location">Разград, България</p>
-
-  <button type="button" class="btn-wine hero-cta" data-open-rsvp>Потвърдете присъствие</button>
-</div>
-
-<!-- ═══════════════ COUNTDOWN ═══════════════ -->
-<div class="countdown-section">
-  <p class="countdown-label">Остават</p>
-  <div class="countdown-grid">
-    <div class="countdown-unit"><span class="num" id="cd-days">000</span><span class="lbl">дни</span></div>
-    <div class="countdown-sep">·</div>
-    <div class="countdown-unit"><span class="num" id="cd-hours">00</span><span class="lbl">часа</span></div>
-    <div class="countdown-sep">·</div>
-    <div class="countdown-unit"><span class="num" id="cd-mins">00</span><span class="lbl">минути</span></div>
-    <div class="countdown-sep">·</div>
-    <div class="countdown-unit"><span class="num" id="cd-secs">00</span><span class="lbl">секунди</span></div>
-  </div>
-
-  <button type="button" class="cal-trigger" id="addToCal">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
-    Добави в календара
-  </button>
-</div>
-
-<!-- ═══════════════ PROGRAM ═══════════════ -->
-<section id="program">
-  <p class="section-eyebrow reveal">06 септември 2026</p>
-  <h2 class="section-title reveal">Програма на деня</h2>
-  <div class="gold-rule reveal"></div>
-
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-dot"></div><div class="tl-time">16:30</div>
-      <div class="tl-title"><span class="tl-icon">⛪</span>Посрещане на гостите</div>
-      <div class="tl-desc">Събиране пред храм „Св. Николай Чудотворец". Пристигнете малко по-рано, за да заемете местата си преди церемонията.</div>
+  <!-- ═══════════ HERO ═══════════ -->
+  <header class="hero">
+    <div class="hero-names">
+      <span class="nm display">Ростислава</span>
+      <span class="cross">&amp;</span>
+      <span class="nm display">Недко</span>
     </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div><div class="tl-time">17:00</div>
-      <div class="tl-title"><span class="tl-icon">💍</span>Венчавка</div>
-      <div class="tl-desc">Религиозна церемония в православен храм „Св. Николай Чудотворец", гр. Разград. Моля, спазвайте тишина по време на богослужението.</div>
+    <div class="hero-date"><span class="d">06 · 09 · 2026</span></div>
+    <p class="hero-loc meta">Разград</p>
+  </header>
+
+  <!-- ═══════════ QUOTE ═══════════ -->
+  <section class="quote">
+    <p class="reveal">
+      Да оставим спомен за един следобед,<br>в който сякаш нищо не се е случило.<br><br>
+      Нищо — освен <span class="em">живота<br>в цялата му пълнота</span>.
+    </p>
+  </section>
+
+  <!-- ═══════════ COUNTDOWN ═══════════ -->
+  <section class="countdown" id="countdown">
+    <div class="reveal">
+      <div class="cd-ring-wrap">
+        <svg class="cd-ring" viewBox="0 0 100 100">
+          <circle class="track" cx="50" cy="50" r="47" />
+          <circle class="prog"  cx="50" cy="50" r="47" id="cdProg" />
+        </svg>
+        <div class="cd-center" id="cdCenter">
+          <span class="cd-days" id="cdDays">—</span>
+          <span class="cd-days-lbl">дни</span>
+        </div>
+      </div>
+      <p class="cd-clock" id="cdClock"><b>00</b> ч · <b>00</b> м · <b>00</b> с</p>
     </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div><div class="tl-time">18:00</div>
-      <div class="tl-title"><span class="tl-icon">📸</span>Фотосесия</div>
-      <div class="tl-desc">Официална фотосесия пред храма и в парка. Всички гости са добре дошли да участват в груповите снимки.</div>
+  </section>
+
+  <!-- ═══════════ PROGRAM ═══════════ -->
+  <section id="program">
+    <div class="sec-head reveal">
+      <span class="eyebrow">06 септември</span>
+      <h2 class="display">Програма на деня</h2>
     </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div><div class="tl-time">19:30</div>
-      <div class="tl-title"><span class="tl-icon">🥂</span>Коктейл</div>
-      <div class="tl-desc">Добре дошли напитки и лека закуска в ресторанта. Музика на живо, добро настроение и запознанства.</div>
+
+    <div class="timeline">
+      <div class="tl reveal"><div class="t">16:30</div><h3>Посрещане на гостите</h3><p>Събиране пред храм „Св. Николай Чудотворец". Пристигнете малко по-рано, за да заемете местата си.</p></div>
+      <div class="tl reveal"><div class="t">17:00</div><h3>Венчавка</h3><p>Религиозна церемония в православния храм „Св. Николай Чудотворец", Разград.</p></div>
+      <div class="tl reveal"><div class="t">18:00</div><h3>Фотосесия</h3><p>Официални снимки пред храма и в парка. Всички гости са добре дошли в груповите кадри.</p></div>
+      <div class="tl reveal"><div class="t">19:30</div><h3>Коктейл</h3><p>Напитки за добре дошли и лека закуска в ресторанта, музика и първи запознанства.</p></div>
+      <div class="tl reveal"><div class="t">20:00</div><h3>Сватбена трапеза</h3><p>Тържествена вечеря с тостове и моменти, които ще запомним завинаги.</p></div>
+      <div class="tl reveal"><div class="t">22:00</div><h3>Рязане на торта</h3><p>Тържественото рязане на тортата — сладкият момент на вечерта.</p></div>
     </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div><div class="tl-time">20:30</div>
-      <div class="tl-title"><span class="tl-icon">🍽️</span>Сватбена трапеза</div>
-      <div class="tl-desc">Тържествена вечеря с многобройни изненади, тостове и моменти, които ще запомним завинаги.</div>
+  </section>
+
+  <!-- ═══════════ VENUES ═══════════ -->
+  <section id="venues">
+    <div class="sec-head reveal">
+      <h2 class="display">Къде ще се срещнем?</h2>
     </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div><div class="tl-time">23:00</div>
-      <div class="tl-title"><span class="tl-icon">🎂</span>Сватбена торта</div>
-      <div class="tl-desc">Тържествено рязане на тортата — сладкият момент на деня, за да не липсват снимки!</div>
+
+    <div class="v-card reveal">
+      <span class="v-when meta">Венчавка · 17:00</span>
+      <h3>Храм „Св. Николай Чудотворец"</h3>
+      <p class="v-addr">гр. Разград, България</p>
+      <a class="v-map" href="https://maps.google.com/?q=Разград+храм+Свети+Николай+Чудотворец" target="_blank" rel="noopener">Отвори в карти</a>
     </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div><div class="tl-time">23:30</div>
-      <div class="tl-title"><span class="tl-icon">💃</span>Парти</div>
-      <div class="tl-desc">DJ сет, танци, игри и изненади. Нека тази вечер продължи колкото се може по-дълго!</div>
+
+    <div class="v-card reveal">
+      <img class="v-logo" src="soho.jpg" alt="Steak House SOHO" onerror="this.style.display='none'" />
+      <span class="v-when meta">Коктейл &amp; трапеза · от 19:30</span>
+      <h3>Steak House SOHO</h3>
+      <p class="v-addr">гр. Разград · до храма</p>
+      <a class="v-map" href="https://maps.google.com/?q=Steak+House+Soho+Razgrad" target="_blank" rel="noopener">Отвори в карти</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══════════════ VENUES ═══════════════ -->
-<section id="venues">
-  <h2 class="section-title reveal">Къде ще се срещнем?</h2>
-  <div class="gold-rule reveal"></div>
+  <!-- ═══════════ RSVP ═══════════ -->
+  <section id="rsvp" class="action-block">
+    <div class="sec-head reveal">
+      <h2 class="display">Ще бъдете ли с нас?</h2>
+    </div>
+    <p class="lead reveal">Молим, потвърдете присъствието си навреме, за да подготвим всичко за Вас.</p>
+    <button type="button" class="pill reveal" data-open-rsvp>Потвърди присъствие</button>
+  </section>
 
-  <div class="venue-card reveal">
-    <span class="v-icon">⛪</span>
-    <h3>Храм „Св. Николай Чудотворец"</h3>
-    <p>Венчавка · 17:00 ч.</p>
-    <p class="v-address">гр. Разград, България</p>
-    <a class="map-btn" href="https://maps.google.com/?q=Разград+храм+Свети+Николай+Чудотворец" target="_blank" rel="noopener">Отвори в карти</a>
-  </div>
+  <!-- ═══════════ CALENDAR ═══════════ -->
+  <section id="calendar" class="action-block">
+    <button type="button" class="cal-card reveal" id="openCal">
+      <span class="cal-ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>
+      </span>
+      <span class="cal-tx">
+        <span class="a">Добави в календара</span>
+        <span class="b">06 септември 2026 · Разград</span>
+      </span>
+      <span class="chev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></span>
+    </button>
+  </section>
 
-  <div class="venue-card reveal">
-    <img class="v-logo" src="soho.jpg" alt="Steak House SOHO" />
-    <h3>Steak House SOHO</h3>
-    <p>Коктейл &amp; Трапеза · от 19:30 ч.</p>
-    <p class="v-address">гр. Разград, до храма</p>
-    <a class="map-btn" href="https://maps.google.com/?q=Steak+House+Soho+Razgrad" target="_blank" rel="noopener">Отвори в карти</a>
-  </div>
-</section>
+  <!-- ═══════════ NOTE ═══════════ -->
+  <section class="note-wrap">
+    <div class="bubble reveal">
+      <p>
+        Най-хубавите подаръци са<br>присъствието и усмивката Ви.<br><br>
+        А ако искате да ни изненадате — <span class="hl">подарете ни копие от любимата си книга</span> вместо букет.
+      </p>
+    </div>
+  </section>
 
-<div class="ornament">· · ·</div>
+</div><!-- /.page -->
 
-<!-- ═══════════════ RSVP CTA BAND ═══════════════ -->
-<div class="rsvp-section" id="rsvp">
-  <div class="rsvp-band">
-    <h2 class="section-title reveal" style="margin-bottom:1.5rem;">Ще бъдете ли с нас?</h2>
-    <div class="gold-rule reveal"></div>
-    <p class="rsvp-intro reveal">Молим, потвърдете присъствието си навреме, за да подготвим всичко за Вас.</p>
-    <button type="button" class="btn-wine reveal" data-open-rsvp>Потвърдете присъствие</button>
-  </div>
-</div>
-
-<div class="ornament">· · ·</div>
-
-<!-- ═══════════════ NOTE ═══════════════ -->
-<section id="note" style="text-align:center; padding-top: 3rem; padding-bottom: 3rem;">
-  <h2 class="section-title reveal" style="font-size:1.9rem;">Малко пожелание</h2>
-  <div class="gold-rule reveal"></div>
-  <p class="reveal" style="font-style:italic; color:var(--muted); font-size:1.1rem; max-width:430px; margin:0 auto; line-height:1.9;">
-    Най-хубавите подаръци, които можете да ни дадете,<br>
-    са присъствието и усмивката ви.<br><br>
-    Ако желаете да ни изненадате с нещо,<br>
-    предпочитаме <strong style="color:var(--wine); font-style:normal;">да ни подарите копие от любимата си книга, вместо букети.</strong>
-  </p>
-</section>
-
-<!-- ═══════════════ FOOTER ═══════════════ -->
-<footer>
-  <div class="f-monogram" aria-hidden="true">
-    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="60" cy="60" r="56" fill="none" stroke="#d4af75" stroke-width="1"/>
-      <text x="60" y="72" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="42" font-style="italic" fill="#ffffff">Р<tspan font-size="26" fill="#d4af75" dx="2" dy="-2">&amp;</tspan><tspan dy="2" dx="2">Н</tspan></text>
-    </svg>
-  </div>
-  <div class="f-names">Ростислава & Недко</div>
-  <div class="f-date">06 · IX · 2026 · Разград</div>
-  <p>С любов и нетърпение очакваме<br>да споделим този ден с вас.</p>
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <span class="fe eyebrow">С любов</span>
+  <div class="fn display">Ростислава <span class="x">&amp;</span> Недко</div>
+  <p class="fd meta">06 · 09 · 2026 · Разград</p>
 </footer>
 
-<!-- ═══════════════ CALENDAR MODAL ═══════════════ -->
+<!-- ═══════════ CALENDAR MODAL ═══════════ -->
 <div class="overlay hidden" id="calModal" role="dialog" aria-modal="true" aria-labelledby="calTitle">
   <div class="sheet sheet-cal">
-    <button type="button" class="sheet-close" id="calClose" aria-label="Затвори">×</button>
+    <button type="button" class="sheet-x" id="calClose" aria-label="Затвори">×</button>
     <h3 id="calTitle">Добави в календара</h3>
-    <p class="cal-sub">06 септември 2026 · Разград</p>
+    <p class="sub meta">06 септември 2026 · Разград</p>
     <a class="cal-opt" id="calGoogle" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
-      Google Календар
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>Google Календар
     </a>
     <a class="cal-opt" href="event.ics">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
-      Apple Календар (iPhone)
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>Apple Календар (iPhone)
     </a>
     <a class="cal-opt" id="calOutlook" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
-      Outlook
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>Outlook
     </a>
   </div>
 </div>
 
-<!-- ═══════════════ RSVP MODAL ═══════════════ -->
-<div class="overlay hidden" id="rsvpModal" role="dialog" aria-modal="true" aria-labelledby="rsvpModalTitle">
+<!-- ═══════════ RSVP MODAL ═══════════ -->
+<div class="overlay hidden" id="rsvpModal" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle">
   <div class="sheet sheet-rsvp">
-    <button type="button" class="sheet-close" id="rsvpClose" aria-label="Затвори">×</button>
+    <button type="button" class="sheet-x" id="rsvpClose" aria-label="Затвори">×</button>
 
-    <p class="section-eyebrow">Потвърждение</p>
-    <h2 class="section-title" id="rsvpModalTitle">Ще бъдете ли с нас?</h2>
-    <div class="gold-rule"></div>
+    <div class="sec-head">
+      <span class="eyebrow">Потвърждение</span>
+      <h2 class="display" id="rsvpTitle">Ще бъдете ли с нас?</h2>
+    </div>
 
-    <p class="rsvp-intro" id="rsvpFormIntro">Изберете дали ще присъствате и впишете имената на гостите.</p>
+    <p class="rsvp-intro" id="rsvpIntro">Изберете дали ще присъствате и впишете имената на гостите.</p>
 
-    <div id="rsvpFormBox">
+    <div id="rsvpForm">
       <div class="field">
         <span class="field-label">Ще присъствате ли?</span>
-        <div class="attend-toggle">
-          <button type="button" class="attend-btn" data-val="yes" id="attendYes">Да, ще бъдем там</button>
-          <button type="button" class="attend-btn" data-val="no" id="attendNo">За съжаление, не</button>
+        <div class="attend">
+          <button type="button" class="attend-btn" data-val="yes" id="attYes">Да, ще бъдем там</button>
+          <button type="button" class="attend-btn" data-val="no" id="attNo">За съжаление, не</button>
         </div>
       </div>
 
@@ -447,214 +538,178 @@
         <div id="guestList">
           <div class="guest-row">
             <input type="text" class="input guest-name" placeholder="Име" />
-            <button type="button" class="guest-remove hidden" aria-label="Премахни">×</button>
+            <button type="button" class="guest-rm hidden" aria-label="Премахни">×</button>
           </div>
         </div>
         <button type="button" class="add-guest" id="addGuest">+ Добави още гост</button>
       </div>
 
-      <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" />
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
 
-      <button type="button" class="rsvp-submit" id="rsvpSubmit">Изпрати потвърждение</button>
+      <button type="button" class="rsvp-send" id="rsvpSend">Изпрати потвърждение</button>
       <p class="form-error" id="formError"></p>
     </div>
 
-    <div id="rsvpSuccess" class="rsvp-success hidden">
-      <div class="check">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#b08d57" stroke-width="1.5"><path d="M6 14.5l5 5 11-12"/></svg>
-      </div>
-      <h3 id="successTitle">Благодарим Ви!</h3>
-      <p id="successText">Получихме Вашето потвърждение. Очакваме Ви с нетърпение. 🤍</p>
+    <div id="rsvpOk" class="rsvp-ok hidden">
+      <div class="check"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#a56c72" stroke-width="1.5"><path d="M6 14.5l5 5 11-12"/></svg></div>
+      <h3 id="okTitle">Благодарим Ви!</h3>
+      <p id="okText">Получихме Вашето потвърждение. Очакваме Ви с нетърпение.</p>
     </div>
   </div>
 </div>
 
 <script>
   const WEB3FORMS_ACCESS_KEY = "cbb5cc4b-8266-4fb5-a165-d61ead73504e";
+  const TARGET = new Date('2026-09-06T17:00:00+03:00');
 
-  // ── Countdown (към венчавката · 17:00) ─────────────────────────
-  const target = new Date('2026-09-06T17:00:00');
+  /* ── Countdown ── */
+  const cdProg = document.getElementById('cdProg');
+  const R = 47, CIRC = 2 * Math.PI * R;
+  cdProg.style.strokeDasharray = CIRC;
+  const WINDOW_MS = 365 * 864e5; // ring fills over the final year
+
   function tick() {
-    const diff = target - Date.now();
+    const diff = TARGET - Date.now();
     if (diff <= 0) {
-      document.querySelector('.countdown-section').innerHTML =
-        '<p style="font-family:\'Cormorant Garamond\',serif;font-size:2rem;color:#fff;font-style:italic;">Честито на младоженците! 🥂</p>';
+      document.getElementById('cdCenter').innerHTML = '<span class="cd-done">Честито! 🤍</span>';
+      document.getElementById('cdClock').textContent = '';
+      cdProg.style.strokeDashoffset = 0;
       return;
     }
     const d = Math.floor(diff / 864e5);
     const h = Math.floor((diff % 864e5) / 36e5);
     const m = Math.floor((diff % 36e5) / 6e4);
     const s = Math.floor((diff % 6e4) / 1e3);
-    document.getElementById('cd-days').textContent  = String(d).padStart(3,'0');
-    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-    document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
-    document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+    document.getElementById('cdDays').textContent = d;
+    document.getElementById('cdClock').innerHTML =
+      '<b>' + String(h).padStart(2,'0') + '</b> ч · <b>' + String(m).padStart(2,'0') + '</b> м · <b>' + String(s).padStart(2,'0') + '</b> с';
+    const frac = Math.min(1, Math.max(0, 1 - diff / WINDOW_MS));
+    cdProg.style.strokeDashoffset = CIRC * (1 - frac);
   }
   tick(); setInterval(tick, 1000);
 
-  // ── Scroll-reveal ──────────────────────────────────────────────
-  const io = new IntersectionObserver(entries => {
+  /* ── Reveal on scroll ── */
+  const io = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 60);
-        io.unobserve(e.target);
-      }
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), i * 70); io.unobserve(e.target); }
     });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.tl-item, .reveal').forEach(el => io.observe(el));
+  }, { threshold: 0.16 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // ── Modal helpers (общи) ───────────────────────────────────────
-  function openModal(el) {
-    el.classList.remove('hidden');
-    document.body.classList.add('modal-open');
-    requestAnimationFrame(() => el.classList.add('show'));
-  }
-  function closeModal(el) {
-    el.classList.remove('show');
-    document.body.classList.remove('modal-open');
-    setTimeout(() => el.classList.add('hidden'), 260);
-  }
-  function wireModal(modal, closeBtn) {
-    closeBtn.addEventListener('click', () => closeModal(modal));
+  /* ── Modal helpers ── */
+  function openModal(el) { el.classList.remove('hidden'); document.body.classList.add('modal-open'); requestAnimationFrame(() => el.classList.add('show')); }
+  function closeModal(el) { el.classList.remove('show'); document.body.classList.remove('modal-open'); setTimeout(() => el.classList.add('hidden'), 300); }
+  function wireModal(modal, btn) {
+    btn.addEventListener('click', () => closeModal(modal));
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(modal); });
   }
 
-  // ── Add to Calendar ────────────────────────────────────────────
-  const calEvent = {
+  /* ── Calendar links ── */
+  const ev = {
     title: 'Сватба на Ростислава & Недко',
-    start: '20260906T163000',
-    end:   '20260906T235900',
+    start: '20260906T163000', end: '20260906T235900',
     location: 'Храм „Св. Николай Чудотворец", Разград',
     description: 'Венчавка от 17:00 ч. в храм „Св. Николай Чудотворец". Тържество в Steak House SOHO, Разград. Очакваме Ви!'
   };
-  function googleUrl(e) {
-    const p = new URLSearchParams({ action:'TEMPLATE', text:e.title, dates:e.start+'/'+e.end, details:e.description, location:e.location, ctz:'Europe/Sofia' });
-    return 'https://calendar.google.com/calendar/render?' + p.toString();
-  }
-  function outlookUrl(e) {
+  document.getElementById('calGoogle').href =
+    'https://calendar.google.com/calendar/render?' + new URLSearchParams({ action:'TEMPLATE', text:ev.title, dates:ev.start+'/'+ev.end, details:ev.description, location:ev.location, ctz:'Europe/Sofia' });
+  (function(){
     const iso = s => s.slice(0,4)+'-'+s.slice(4,6)+'-'+s.slice(6,8)+'T'+s.slice(9,11)+':'+s.slice(11,13)+':00+03:00';
-    const p = new URLSearchParams({ path:'/calendar/action/compose', rru:'addevent', subject:e.title, startdt:iso(e.start), enddt:iso(e.end), location:e.location, body:e.description });
-    return 'https://outlook.live.com/calendar/0/deeplink/compose?' + p.toString();
-  }
-  document.getElementById('calGoogle').href  = googleUrl(calEvent);
-  document.getElementById('calOutlook').href = outlookUrl(calEvent);
+    document.getElementById('calOutlook').href =
+      'https://outlook.live.com/calendar/0/deeplink/compose?' + new URLSearchParams({ path:'/calendar/action/compose', rru:'addevent', subject:ev.title, startdt:iso(ev.start), enddt:iso(ev.end), location:ev.location, body:ev.description });
+  })();
 
   const calModal = document.getElementById('calModal');
-  document.getElementById('addToCal').addEventListener('click', () => openModal(calModal));
+  document.getElementById('openCal').addEventListener('click', () => openModal(calModal));
   wireModal(calModal, document.getElementById('calClose'));
 
-  // ── RSVP modal open/close ──────────────────────────────────────
+  /* ── RSVP modal ── */
   const rsvpModal = document.getElementById('rsvpModal');
-  document.querySelectorAll('[data-open-rsvp]').forEach(btn =>
-    btn.addEventListener('click', () => openModal(rsvpModal))
-  );
+  document.querySelectorAll('[data-open-rsvp]').forEach(b => b.addEventListener('click', () => openModal(rsvpModal)));
   wireModal(rsvpModal, document.getElementById('rsvpClose'));
 
-  // ── RSVP form logic ────────────────────────────────────────────
+  /* ── RSVP form ── */
   let attending = null;
-  const attendYes   = document.getElementById('attendYes');
-  const attendNo    = document.getElementById('attendNo');
-  const guestList   = document.getElementById('guestList');
+  const attYes = document.getElementById('attYes');
+  const attNo  = document.getElementById('attNo');
+  const guestList = document.getElementById('guestList');
   const addGuestBtn = document.getElementById('addGuest');
-  const guestLabel  = document.getElementById('guestLabel');
-  const guestHint   = document.getElementById('guestHint');
-  const submitBtn   = document.getElementById('rsvpSubmit');
-  const formError   = document.getElementById('formError');
+  const guestLabel = document.getElementById('guestLabel');
+  const guestHint  = document.getElementById('guestHint');
+  const sendBtn = document.getElementById('rsvpSend');
+  const formError = document.getElementById('formError');
 
-  function refreshRemoveButtons() {
+  function refreshRm() {
     const rows = guestList.querySelectorAll('.guest-row');
-    rows.forEach(row => row.querySelector('.guest-remove').classList.toggle('hidden', rows.length <= 1));
+    rows.forEach(r => r.querySelector('.guest-rm').classList.toggle('hidden', rows.length <= 1));
   }
-  function addGuestRow() {
+  function addRow() {
     const row = document.createElement('div');
     row.className = 'guest-row';
-    row.innerHTML = '<input type="text" class="input guest-name" placeholder="Име" />' +
-                    '<button type="button" class="guest-remove" aria-label="Премахни">×</button>';
-    row.querySelector('.guest-remove').addEventListener('click', () => { row.remove(); refreshRemoveButtons(); });
-    guestList.appendChild(row);
-    refreshRemoveButtons();
-    row.querySelector('.guest-name').focus();
+    row.innerHTML = '<input type="text" class="input guest-name" placeholder="Име" /><button type="button" class="guest-rm" aria-label="Премахни">×</button>';
+    row.querySelector('.guest-rm').addEventListener('click', () => { row.remove(); refreshRm(); });
+    guestList.appendChild(row); refreshRm(); row.querySelector('.guest-name').focus();
   }
-  addGuestBtn.addEventListener('click', addGuestRow);
-  guestList.querySelector('.guest-remove').addEventListener('click', function () {
-    this.closest('.guest-row').remove(); refreshRemoveButtons();
-  });
+  addGuestBtn.addEventListener('click', addRow);
+  guestList.querySelector('.guest-rm').addEventListener('click', function(){ this.closest('.guest-row').remove(); refreshRm(); });
 
   function setAttending(val) {
     attending = val;
-    attendYes.classList.toggle('active', val === 'yes');
-    attendNo.classList.toggle('active', val === 'no');
+    attYes.classList.toggle('on', val === 'yes');
+    attNo.classList.toggle('on', val === 'no');
     formError.textContent = '';
     if (val === 'no') {
       guestLabel.textContent = 'Вашето име';
-      guestHint.textContent  = 'За да знаем кой няма да успее да дойде.';
+      guestHint.textContent = 'За да знаем кой няма да успее да дойде.';
       addGuestBtn.classList.add('hidden');
-      guestList.querySelectorAll('.guest-row').forEach((r, idx) => { if (idx > 0) r.remove(); });
-      refreshRemoveButtons();
+      guestList.querySelectorAll('.guest-row').forEach((r, i) => { if (i > 0) r.remove(); });
+      refreshRm();
     } else {
       guestLabel.textContent = 'Имена на гостите';
-      guestHint.textContent  = 'Впишете имената на всички, които ще дойдат с Вас.';
+      guestHint.textContent = 'Впишете имената на всички, които ще дойдат с Вас.';
       addGuestBtn.classList.remove('hidden');
     }
   }
-  attendYes.addEventListener('click', () => setAttending('yes'));
-  attendNo.addEventListener('click',  () => setAttending('no'));
+  attYes.addEventListener('click', () => setAttending('yes'));
+  attNo.addEventListener('click', () => setAttending('no'));
 
-  function collectNames() {
-    return Array.from(guestList.querySelectorAll('.guest-name')).map(i => i.value.trim()).filter(Boolean);
-  }
+  function names() { return Array.from(guestList.querySelectorAll('.guest-name')).map(i => i.value.trim()).filter(Boolean); }
 
-  submitBtn.addEventListener('click', async () => {
+  sendBtn.addEventListener('click', async () => {
     formError.textContent = '';
     if (!attending) { formError.textContent = 'Моля, изберете дали ще присъствате.'; return; }
-    const names = collectNames();
-    if (names.length === 0) {
-      formError.textContent = attending === 'yes' ? 'Моля, въведете поне едно име.' : 'Моля, въведете Вашето име.';
-      return;
-    }
-    if (WEB3FORMS_ACCESS_KEY.indexOf('ТУК') !== -1) {
-      formError.textContent = 'Формата още не е свързана. (Добави Web3Forms access key в кода.)';
-      return;
-    }
+    const list = names();
+    if (list.length === 0) { formError.textContent = attending === 'yes' ? 'Моля, въведете поне едно име.' : 'Моля, въведете Вашето име.'; return; }
 
     const botcheck = document.querySelector('input[name="botcheck"]').checked;
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Изпращане…';
+    sendBtn.disabled = true; sendBtn.textContent = 'Изпращане…';
 
     const payload = {
-      access_key: WEB3FORMS_ACCESS_KEY,
-      botcheck: botcheck,
+      access_key: WEB3FORMS_ACCESS_KEY, botcheck,
       from_name: 'Сватбен сайт · Р & Н',
-      subject: (attending === 'yes' ? '✅ Ще присъстват: ' : '❌ Няма да присъстват: ') + names.join(', '),
+      subject: (attending === 'yes' ? '✅ Ще присъстват: ' : '❌ Няма да присъстват: ') + list.join(', '),
       "Присъствие": attending === 'yes' ? 'ДА' : 'НЕ',
-      "Брой гости": attending === 'yes' ? names.length : 0,
-      "Имена": names.join(', ')
+      "Брой гости": attending === 'yes' ? list.length : 0,
+      "Имена": list.join(', ')
     };
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      const res = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{ 'Content-Type':'application/json', 'Accept':'application/json' }, body: JSON.stringify(payload) });
       const data = await res.json();
       if (data.success) {
-        document.getElementById('rsvpFormBox').classList.add('hidden');
-        document.getElementById('rsvpFormIntro').classList.add('hidden');
+        document.getElementById('rsvpForm').classList.add('hidden');
+        document.getElementById('rsvpIntro').classList.add('hidden');
         if (attending === 'no') {
-          document.getElementById('successTitle').textContent = 'Благодарим Ви, че ни уведомихте';
-          document.getElementById('successText').textContent  = 'Ще ни липсвате. 🤍 Изпращаме Ви топъл поздрав!';
+          document.getElementById('okTitle').textContent = 'Благодарим Ви, че ни уведомихте';
+          document.getElementById('okText').textContent  = 'Ще ни липсвате. Изпращаме Ви топъл поздрав. 🤍';
         }
-        document.getElementById('rsvpSuccess').classList.remove('hidden');
+        document.getElementById('rsvpOk').classList.remove('hidden');
         document.querySelector('.sheet-rsvp').scrollTop = 0;
-      } else {
-        throw new Error(data.message || 'submit failed');
-      }
+      } else { throw new Error(data.message || 'failed'); }
     } catch (err) {
       formError.textContent = 'Нещо се обърка при изпращането. Опитайте отново след малко.';
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Изпрати потвърждение';
+      sendBtn.disabled = false; sendBtn.textContent = 'Изпрати потвърждение';
     }
   });
 </script>
