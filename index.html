@@ -840,6 +840,26 @@
       line-height: 1.82;
     }
 
+    .section-illustration,
+    .gift-illustration {
+      display: block;
+      height: auto;
+      margin: 0 auto 1.35rem;
+      filter: drop-shadow(0 18px 28px rgba(123, 91, 77, 0.14));
+    }
+
+    .section-illustration--wide {
+      width: min(100%, 400px);
+    }
+
+    .section-illustration--tall {
+      width: min(100%, 220px);
+    }
+
+    .gift-illustration {
+      width: min(100%, 230px);
+    }
+
     /* FOOTER */
     .site-footer {
       border-top: 1px solid var(--line-soft);
@@ -3004,7 +3024,7 @@
     <a href="#dress-code" data-nav>Дрескод</a>
     <a href="#rsvp" data-nav>Потвърждение</a>
     <a href="#accommodation" data-nav>Настаняване</a>
-    <a href="#gifts" data-nav>Книги за подарък</a>
+    <a href="#gifts" data-nav>Кауза без цветя</a>
     <a href="#gallery" data-nav>Галерия</a>
     <span class="nav-date meta">06 · IX · 2026 · Разград</span>
   </nav>
@@ -3133,9 +3153,10 @@
 
     <section class="section" id="dress-code">
       <div class="info-card card reveal">
+        <img class="section-illustration section-illustration--wide" src="dress-code-illustration.png" alt="Илюстрация на сватбени тоалети" loading="lazy" />
         <span class="eyebrow">Дрескод</span>
-        <h2>Празнично-елегантен</h2>
-        <p class="lead">Ще празнуваме под открито небе и сред зеленина, затова Ви съветваме да изберете удобни обувки, подходящи за градина.</p>
+        <h2>Елегантно и с настроение</h2>
+        <p class="lead">За нас най-красивият аксесоар ще бъдат Вашите усмивки. Изберете облекло, в което се чувствате красиви и уверени. Тъй като празненството ще бъде на открито, Ви съветваме да заложите и на удобни обувки, подходящи за градина.</p>
         <p class="weather-note">При неподходящо време празненството ще продължи на закрито.</p>
       </div>
     </section>
@@ -3146,11 +3167,13 @@
         </div>
 
         <div class="info-card card reveal">
-          <span class="eyebrow">RSVP</span>
-          <h2>Ще бъдете ли с нас?</h2>
+          <img class="section-illustration section-illustration--wide" src="rsvp-illustration.png" alt="Илюстрация на покана и RSVP карта" loading="lazy" />
+          <span class="eyebrow">Моля, отговорете</span>
+          <h2>Ще дойдете ли?</h2>
           <p class="lead">Ще се радваме да споделим този ден с Вас.</p>
-          <p class="rsvp-deadline">Моля, потвърдете присъствието си до 15 август 2026 г.</p>
-          <button class="map-link" type="button" data-open-rsvp>Потвърди присъствие</button>
+          <p class="gift-copy">Моля, потвърдете присъствието си, за да можем да планираме най-добре нашия празник.</p>
+          <p class="rsvp-deadline">Ще Ви бъдем благодарни да ни отговорите до 15 август 2026 г.</p>
+          <button class="map-link" type="button" data-open-rsvp>Изпратете отговор</button>
 
           <div class="contact-fallback">
             При затруднение с формата се свържете с нас.
@@ -3167,7 +3190,7 @@
 
     <section class="section" id="accommodation">
       <div class="info-card card reveal">
-        <span class="eyebrow">06 септември 2026</span>
+        <img class="section-illustration section-illustration--tall" src="accommodation-illustration.png" alt="Илюстрация на къща за гости" loading="lazy" />
         <h2>Настаняване</h2>
         <p class="lead">За да бъдете спокойни и да останете с нас до края на празника, сме се погрижили за настаняването Ви за нощта на 06 септември.</p>
         <p class="venue-address">Guest House Parkova 33 · Разград</p>
@@ -3189,16 +3212,18 @@
 
     <section class="section" id="gifts">
       <div class="info-card card reveal">
-        <span class="eyebrow">Вместо цветя</span>
-        <h2>Книги за подарък</h2>
-        <p class="gift-copy">Най-хубавият подарък за нас е Вашето присъствие. Ако желаете да ни зарадвате допълнително, подарете ни копие от любимата си книга вместо букет и оставете няколко думи за спомен на първата страница.</p>
-        <p class="gift-copy">За да не се повтарят заглавията, можете да проверите книгите, които вече имаме.</p>
+        <img class="gift-illustration" src="bouquet-cause.png" alt="Илюстрация на букет с евкалипт и бели цветя" loading="lazy" />
+        <span class="eyebrow">Кауза</span>
+        <h2>Кауза без цветя</h2>
+        <p class="gift-copy">Най-ценният подарък за нас е Вашето присъствие. Ако все пак желаете да ни зарадвате с нещо допълнително, ще се радваме вместо живи цветя да ни подарите копие от любима за Вас книга — с няколко думи от Вас на първата страница.</p>
+        <p class="gift-copy">Така ще запазим по един личен спомен от всеки от Вас и ще дадем живот на истории, вместо да откъсваме цветя. А за да не се повтарят заглавията, можете да проверите книгите, които вече имаме.</p>
         <button class="secondary-button" type="button" id="openBooks">Вижте книгите, които вече имаме</button>
       </div>
     </section>
 
     <section class="section" id="gallery">
       <div class="info-card card reveal">
+        <img class="section-illustration section-illustration--tall" src="gallery-illustration.png" alt="Илюстрация на камера и снимки" loading="lazy" />
         <span class="eyebrow">След събитието</span>
         <h2>Галерия</h2>
         <p class="lead">Тук ще споделим линк към снимките от нашия сватбен ден, за да преживеем красивите моменти отново — заедно.</p>
@@ -3242,10 +3267,10 @@
     <div class="modal-sheet">
       <button class="modal-close" type="button" data-close-modal aria-label="Затвори">×</button>
       <div class="modal-head">
-        <span class="eyebrow">Потвърждение</span>
-        <h2 id="rsvpModalTitle">Ще бъдете ли с нас?</h2>
+        <span class="eyebrow">Моля, отговорете</span>
+        <h2 id="rsvpModalTitle">Ще дойдете ли?</h2>
       </div>
-      <p class="modal-intro" id="rsvpIntro">Изберете дали ще присъствате и впишете имената на гостите.</p>
+      <p class="modal-intro" id="rsvpIntro">Моля, потвърдете присъствието си, за да можем да планираме най-добре нашия празник.</p>
 
       <form id="rsvpForm" novalidate>
         <div class="field">
@@ -3279,7 +3304,7 @@
           <div class="h-captcha" data-captcha="true" data-lang="bg" data-size="compact"></div>
         </div>
 
-        <button class="submit-button" type="submit" id="rsvpSubmit">Изпрати потвърждение</button>
+        <button class="submit-button" type="submit" id="rsvpSubmit">Изпрати отговор</button>
         <p class="form-error" id="formError" role="alert" aria-live="polite"></p>
       </form>
 
@@ -4282,7 +4307,7 @@
 
   // Restore the submit button
   rsvpSubmit.disabled = false;
-  rsvpSubmit.textContent = 'Изпрати потвърждение';
+  rsvpSubmit.textContent = 'Изпрати отговор';
 
   // Restore the default success message
   document.getElementById('successTitle').textContent = 'Благодарим Ви!';
@@ -4436,7 +4461,7 @@ document.querySelectorAll('[data-open-rsvp]').forEach((button) => {
       } catch (error) {
         formError.textContent = 'Нещо се обърка при изпращането. Опитайте отново или се свържете с Недко на 0895 751 840.';
         rsvpSubmit.disabled = false;
-        rsvpSubmit.textContent = 'Изпрати потвърждение';
+        rsvpSubmit.textContent = 'Изпрати отговор';
         if (window.hcaptcha) window.hcaptcha.reset();
       }
     });
