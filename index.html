@@ -700,9 +700,9 @@
       justify-content: center;
       margin-top: 2rem;
       padding: 0 2.55rem;
-      border: 1px solid var(--champagne-deep);
+      border: 1px solid var(--champagne-dark);
       border-radius: var(--radius-pill);
-      background: var(--champagne-deep);
+      background: var(--champagne-dark);
       box-shadow: var(--shadow-soft);
       color: #fff;
       cursor: pointer;
@@ -2063,8 +2063,8 @@
 
     .primary-button,
     .attending-button.selected {
-      border-color: var(--champagne-deep);
-      background: var(--champagne-deep);
+      border-color: var(--champagne-dark);
+      background: var(--champagne-dark);
       color: #FFF9F4 !important;
     }
 
@@ -3268,6 +3268,217 @@
       .hero-photo { border-width: 3px; }
     }
 
+
+    /* PERSONAL LIVE DETAILS */
+    .secret-heart {
+      position: relative;
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      margin: 1.25rem auto 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--champagne-deep);
+      cursor: pointer;
+      font-family: Georgia, serif;
+      font-size: 1.55rem;
+      line-height: 1;
+      animation: secretHeartPulse 2.8s ease-in-out infinite;
+    }
+
+    .secret-heart::before,
+    .secret-heart::after {
+      content: '';
+      position: absolute;
+      inset: 7px;
+      border: 1px solid rgba(213, 171, 148, 0.55);
+      border-radius: 50%;
+      animation: secretHeartRing 2.8s ease-out infinite;
+    }
+
+    .secret-heart::after { animation-delay: 1.4s; }
+    .secret-heart:hover { transform: scale(1.08); }
+
+    .wedding-live-state {
+      width: min(100%, 680px);
+      margin: 0 auto;
+      padding: clamp(2.2rem, 6vw, 4rem) clamp(1.4rem, 5vw, 3.5rem);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius-card);
+      background: var(--card);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .wedding-live-state h2 {
+      margin: 0.8rem auto 0;
+      color: var(--text);
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: clamp(2.3rem, 7vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.08;
+    }
+
+    .wedding-live-state p {
+      margin: 1rem auto 0;
+      color: var(--champagne-dark);
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: clamp(1.2rem, 3vw, 1.45rem);
+    }
+
+    .wedding-live-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1.8rem;
+    }
+
+    .wedding-live-actions .primary-button,
+    .wedding-live-actions .secondary-button { margin: 0; }
+
+    .witness-story {
+      max-width: 29ch;
+      margin: 1rem auto 0;
+      color: var(--champagne-dark);
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.08rem;
+      line-height: 1.55;
+    }
+
+    .gift-note {
+      max-width: 43ch;
+      margin: 1.2rem auto 0;
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.15rem;
+      font-style: italic;
+    }
+
+    .guest-gallery {
+      width: min(100%, 560px);
+      margin: 2rem auto 0;
+      padding-top: 1.8rem;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .guest-gallery h3 {
+      color: var(--text);
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: clamp(1.55rem, 4vw, 2rem);
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .guest-gallery p { margin: 0.65rem auto 1.2rem; color: var(--champagne-dark); }
+    .gallery-link-pending {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      padding: 0.8rem 1.35rem;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius-pill);
+      color: var(--faint);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .secret-sheet { width: min(100%, 520px); text-align: center; }
+    .secret-mark {
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 1rem;
+      color: var(--champagne-deep);
+      font-family: Georgia, serif;
+      font-size: 2.6rem;
+      line-height: 62px;
+      animation: secretHeartPulse 2.8s ease-in-out infinite;
+    }
+    .secret-copy { margin-top: 1.5rem; }
+    .secret-copy p {
+      margin-top: 0.5rem;
+      color: var(--champagne-dark);
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.3rem;
+      line-height: 1.45;
+    }
+    .secret-copy strong { color: var(--text); font-weight: 500; }
+
+    .gift-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1.4rem;
+    }
+    .gift-actions .primary-button,
+    .gift-actions .secondary-button {
+      min-width: 190px;
+      justify-content: center;
+    }
+
+    .book-reservation-card {
+      margin-top: 0.5rem;
+      padding: 2rem 1.4rem 1.4rem;
+      border: 1px solid var(--line-soft);
+      border-radius: 20px;
+      background: rgba(255, 252, 249, 0.68);
+    }
+    .book-reservation-card > h3 {
+      margin-top: 0.6rem;
+      color: var(--text);
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.75rem;
+      font-weight: 500;
+      line-height: 1.18;
+    }
+    .book-reservation-card > p { margin: 0.65rem auto 1.4rem; color: var(--champagne-dark); }
+    .book-reservation-card .field { text-align: left; }
+    .my-reserved-books {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line-soft);
+      text-align: left;
+    }
+    .my-reserved-books h4 {
+      color: var(--champagne-dark);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .my-reserved-books ul { display: grid; gap: 0.45rem; margin-top: 0.7rem; padding-left: 1.2rem; }
+    .my-reserved-books li { color: var(--text-deep); }
+
+    @keyframes secretHeartPulse {
+      0%, 100% { opacity: 0.72; filter: drop-shadow(0 0 0 rgba(213,171,148,0)); transform: scale(1); }
+      50% { opacity: 1; filter: drop-shadow(0 0 8px rgba(213,171,148,0.75)); transform: scale(1.1); }
+    }
+
+    @keyframes secretHeartRing {
+      0% { opacity: 0; transform: scale(0.7); }
+      30% { opacity: 0.55; }
+      100% { opacity: 0; transform: scale(1.55); }
+    }
+
+    @media (max-width: 640px) {
+      .wedding-live-actions { flex-direction: column; align-items: stretch; }
+      .wedding-live-actions .primary-button,
+      .wedding-live-actions .secondary-button { justify-content: center; width: 100%; }
+      .witness-story { font-size: 1rem; }
+      .gift-actions { flex-direction: column; align-items: stretch; }
+      .gift-actions .primary-button,
+      .gift-actions .secondary-button { width: 100%; min-width: 0; font-size: 0.8rem; }
+      .book-reservation-card { padding: 1.6rem 1rem 1rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .secret-heart,
+      .secret-heart::before,
+      .secret-heart::after,
+      .secret-mark { animation: none !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -3284,7 +3495,7 @@
     <a href="#dress-code" data-nav>Дрескод</a>
     <a href="#rsvp" data-nav>Потвърждение</a>
     <a href="#accommodation" data-nav>Настаняване</a>
-    <a href="#gifts" data-nav>Кауза без цветя</a>
+    <a href="#gifts" data-nav>Истории вместо цветя</a>
     <a href="#gallery" data-nav>Галерия</a>
     <span class="nav-date meta">06 · IX · 2026 · Разград</span>
   </nav>
@@ -3324,6 +3535,10 @@
               С нетърпение очакваме да споделим с Вас един от
               най-вълнуващите моменти в живота ни.
             </p>
+
+            <button class="secret-heart" type="button" id="openSecret" aria-label="Открийте малката ни тайна">
+              <span aria-hidden="true">♡</span>
+            </button>
           </div>
 
           <div class="hero-photo-collage" aria-label="Снимки на Ростислава и Недко">
@@ -3341,20 +3556,39 @@
       </div>
     </header>
 
-    <section class="section countdown" id="countdown" aria-label="Обратно броене до сватбата">
+    <section class="section countdown" id="countdown" aria-label="Информация за сватбения ден">
       <div class="reveal">
-        <span class="countdown-label eyebrow">Остават само</span>
-        <div class="countdown-ring-wrap">
-          <svg class="countdown-ring" viewBox="0 0 100 100" aria-hidden="true">
-            <circle class="track" cx="50" cy="50" r="47"></circle>
-            <circle class="progress" cx="50" cy="50" r="47" id="countdownProgress"></circle>
-          </svg>
-          <div class="countdown-center" id="countdownCenter">
-            <span class="countdown-days" id="countdownDays">—</span>
-            <span class="countdown-days-label">дни</span>
+        <div id="preWeddingState">
+          <span class="countdown-label eyebrow">Остават само</span>
+          <div class="countdown-ring-wrap">
+            <svg class="countdown-ring" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="track" cx="50" cy="50" r="47"></circle>
+              <circle class="progress" cx="50" cy="50" r="47" id="countdownProgress"></circle>
+            </svg>
+            <div class="countdown-center" id="countdownCenter">
+              <span class="countdown-days" id="countdownDays">—</span>
+              <span class="countdown-days-label">дни</span>
+            </div>
+          </div>
+          <p class="countdown-clock" id="countdownClock"><b>00</b> ч · <b>00</b> м · <b>00</b> с</p>
+        </div>
+
+        <div class="wedding-live-state hidden" id="weddingDayState" aria-live="polite">
+          <span class="eyebrow">06 · IX · 2026</span>
+          <h2>Днес е нашият сватбен ден!</h2>
+          <p>Очакваме Ви в 16:30 пред храма.</p>
+          <div class="wedding-live-actions">
+            <a class="primary-button" href="#program">Програма за днес</a>
+            <a class="secondary-button" href="https://maps.google.com/?q=Разград+храм+Свети+Николай+Чудотворец" target="_blank" rel="noopener noreferrer">Отвори локацията</a>
           </div>
         </div>
-        <p class="countdown-clock" id="countdownClock"><b>00</b> ч · <b>00</b> м · <b>00</b> с</p>
+
+        <div class="wedding-live-state hidden" id="afterWeddingState" aria-live="polite">
+          <span class="eyebrow">Благодарим Ви</span>
+          <h2>Благодарим Ви, че бяхте част от нашия ден.</h2>
+          <p>Скоро тук ще споделим всички снимки.</p>
+          <a class="secondary-button" href="#gallery">Към галерията</a>
+        </div>
       </div>
     </section>
 
@@ -3370,6 +3604,7 @@
             <img src="ivana.jpg" alt="Ивана" loading="lazy" onerror="this.remove()" />
           </div>
           <h3>Ивана</h3>
+          <p class="witness-story">Тя познава историята ни от самото начало — нашата неизменна подкрепа и човекът, когото отдавна наричаме семейство.</p>
         </article>
 
         <article class="witness-card card reveal">
@@ -3378,6 +3613,7 @@
             <img src="dimitar.jpg" alt="Димитър" loading="lazy" onerror="this.remove()" />
           </div>
           <h3>Димитър</h3>
+          <p class="witness-story">Приятелят, на когото бихме поверили всичко — включително халките си.</p>
         </article>
       </div>
     </section>
@@ -3472,20 +3708,30 @@
     <section class="section" id="gifts">
       <div class="info-card card reveal">
         <img class="gift-illustration" src="bouquet-cause.png" alt="Илюстрация на букет с евкалипт и бели цветя" loading="lazy" />
-        <span class="eyebrow">Кауза</span>
-        <h2>Кауза без цветя</h2>
+        <span class="eyebrow">Нашата библиотека от спомени</span>
+        <h2>Истории вместо цветя</h2>
         <p class="gift-copy">Най-ценният подарък за нас е Вашето присъствие. Ще се радваме вместо живи цветя да ни подарите копие от любима за Вас книга.</p>
         <p class="gift-copy">Така ще запазим по един личен спомен от всеки от Вас и ще дадем живот на истории. Можете да проверите книгите, които вече имаме, за да избегнем повторение.</p>
-        <button class="secondary-button" type="button" id="openBooks">Вижте книгите, които вече имаме</button>
+        <p class="gift-copy gift-note">Напишете ни няколко думи на първата страница — така всяка книга ще носи частица от човека, който ни я е подарил.</p>
+        <div class="gift-actions" aria-label="Книги вместо цветя">
+          <button class="secondary-button" type="button" id="openBooks">Нашата библиотека</button>
+          <button class="primary-button" type="button" id="openBookChoice">Вашият избор</button>
+        </div>
       </div>
     </section>
 
     <section class="section" id="gallery">
       <div class="info-card card reveal">
         <img class="section-illustration section-illustration--tall" src="gallery-illustration.png" alt="Илюстрация на камера и снимки" loading="lazy" />
-        <span class="eyebrow">След събитието</span>
-        <h2>Галерия</h2>
-        <p class="lead">Тук ще споделим линк към снимките от нашия сватбен ден, за да преживеем красивите моменти отново — заедно.</p>
+        <span class="eyebrow" id="galleryEyebrow">След събитието</span>
+        <h2 id="galleryTitle">Галерия</h2>
+        <p class="lead" id="galleryLead">Тук ще споделим линк към снимките от нашия сватбен ден, за да преживеем красивите моменти отново — заедно.</p>
+        <div class="guest-gallery hidden" id="guestGalleryBlock">
+          <h3>Покажете ни сватбата през Вашите очи</h3>
+          <p>Качете снимките и видеата, които сте направили през вечерта.</p>
+          <a class="secondary-button hidden" id="guestGalleryLink" target="_blank" rel="noopener noreferrer">Качете Вашите снимки</a>
+          <span class="gallery-link-pending" id="galleryLinkPending">Линкът за качване ще се появи тук.</span>
+        </div>
       </div>
     </section>
   </main>
@@ -3495,6 +3741,23 @@
     <!-- НЕ СЕ ПРОМЕНЯ: същият оригинален SVG с имената -->
     <img class="footer-names-art" src="imena_ot_osnovnata_pokana.svg" onerror="this.style.visibility='hidden'" alt="Ростислава и Недко" />
   </footer>
+
+  <!-- SECRET MODAL -->
+  <div class="overlay hidden" id="secretModal" role="dialog" aria-modal="true" aria-labelledby="secretModalTitle">
+    <div class="modal-sheet secret-sheet">
+      <button class="modal-close" type="button" data-close-modal aria-label="Затвори">×</button>
+      <div class="secret-mark" aria-hidden="true">♡</div>
+      <div class="modal-head">
+        <span class="eyebrow">Малка тайна</span>
+        <h2 id="secretModalTitle">Неофициалната версия</h2>
+      </div>
+      <div class="secret-copy">
+        <p>Тя каза „да“.</p>
+        <p>Той все още твърди, че изобщо не е бил притеснен.</p>
+        <p><strong>Никой не му вярва.</strong></p>
+      </div>
+    </div>
+  </div>
 
   <!-- CALENDAR MODAL -->
   <div class="overlay hidden" id="calendarModal" role="dialog" aria-modal="true" aria-labelledby="calendarModalTitle">
@@ -3574,32 +3837,131 @@
     </div>
   </div>
 
-  <!-- BOOKS MODAL -->
+  <!-- LIBRARY MODAL -->
   <div class="overlay hidden" id="booksModal" role="dialog" aria-modal="true" aria-labelledby="booksModalTitle">
     <div class="modal-sheet books-sheet">
       <button class="modal-close" type="button" data-close-modal aria-label="Затвори">×</button>
       <div class="modal-head">
+        <span class="eyebrow">Истории вместо цветя</span>
         <h2 id="booksModalTitle">Нашата библиотека</h2>
       </div>
-      <p class="modal-intro">Потърсете по заглавие или автор, преди да изберете своята книга за нас.</p>
+      <p class="modal-intro">Потърсете по заглавие или автор, за да проверите дали книгата вече е в библиотеката ни.</p>
 
       <div class="book-search-wrap">
-        <label class="field-label" for="bookSearch">Търсене</label>
+        <label class="field-label" for="bookSearch">Търсене в библиотеката</label>
         <input class="input" id="bookSearch" type="search" inputmode="search" autocomplete="off" placeholder="Заглавие или автор" />
         <p class="book-count" id="bookCount" aria-live="polite"></p>
       </div>
 
       <ul class="book-list" id="bookList"></ul>
-      <p class="book-empty hidden" id="bookEmpty">Не открихме съвпадащо заглавие.</p>
+      <p class="book-empty hidden" id="bookEmpty">Не открихме съвпадащо заглавие — чудесен избор за нашата библиотека.</p>
+    </div>
+  </div>
+
+  <!-- BOOK CHOICE MODAL -->
+  <div class="overlay hidden" id="bookChoiceModal" role="dialog" aria-modal="true" aria-labelledby="bookChoiceModalTitle">
+    <div class="modal-sheet books-sheet">
+      <button class="modal-close" type="button" data-close-modal aria-label="Затвори">×</button>
+      <div class="modal-head">
+        <span class="eyebrow">Истории вместо цветя</span>
+        <h2 id="bookChoiceModalTitle">Вашият избор</h2>
+      </div>
+
+      <div class="book-reservation-card">
+        <h3>Избрали сте книга, която още нямаме?</h3>
+        <p>Отбележете я, за да знаем коя история ще донесете. Името Ви ще остане само за нас.</p>
+
+        <form id="bookReservationForm" novalidate>
+          <div class="field">
+            <label class="field-label" for="reservedBookTitle">Заглавие на книгата</label>
+            <input class="input" id="reservedBookTitle" type="text" autocomplete="off" placeholder="Заглавие" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="reservedBookAuthor">Автор · по желание</label>
+            <input class="input" id="reservedBookAuthor" type="text" autocomplete="off" placeholder="Автор" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="reservedByName">Вашето име</label>
+            <input class="input" id="reservedByName" type="text" autocomplete="name" placeholder="Име" />
+            <p class="field-hint">Името няма да бъде показвано в сайта.</p>
+          </div>
+          <input class="honeypot" type="checkbox" id="bookBotcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="captcha-wrap">
+            <div class="h-captcha" data-captcha="true" data-lang="bg" data-size="compact"></div>
+          </div>
+          <button class="submit-button" type="submit" id="reserveBookButton">Избрах тази книга</button>
+          <p class="form-error" id="bookReservationStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="my-reserved-books hidden" id="myReservedBooks">
+          <h4>Вашите отбелязани книги</h4>
+          <ul id="myReservedBookList"></ul>
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="https://web3forms.com/client/script.js" async defer></script>
-  <script>
+  <script type="module">
     'use strict';
+
+    /*
+     * Firebase (live book-reservation sync) is loaded lazily via dynamic import
+     * and never allowed to throw past this function. If the CDN is unreachable
+     * (offline guest, blocked domain, outage), the rest of the page — nav,
+     * modals, countdown, RSVP, the static book library — must keep working.
+     */
+    let booksRef = null;
+    let addDocToBooks = null;
+    let makeServerTimestamp = null;
+    let reservedBooks = [];
+
+    async function initFirebaseBooks(onReservationsChanged) {
+      try {
+        const [{ initializeApp }, firestoreModule] = await Promise.all([
+          import("https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"),
+          import("https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js")
+        ]);
+        const { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } = firestoreModule;
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyBhN4UcuhrXB09YXAMfAXzY5abbPwFdGI0",
+          authDomain: "r-and-n-wedding.firebaseapp.com",
+          projectId: "r-and-n-wedding",
+          storageBucket: "r-and-n-wedding.firebasestorage.app",
+          messagingSenderId: "935886457195",
+          appId: "1:935886457195:web:7d2f24a300b4a78517242e",
+          measurementId: "G-5H2RS6SL8D"
+        };
+
+        const fbApp = initializeApp(firebaseConfig);
+        const db = getFirestore(fbApp);
+        booksRef = collection(db, 'books');
+        addDocToBooks = addDoc;
+        makeServerTimestamp = serverTimestamp;
+
+        // The h-captcha check below only stops the on-page form from
+        // submitting — it does not stop a direct Firestore write from
+        // devtools/console. Real abuse protection for the 'books'
+        // collection must come from Firestore Security Rules (and/or
+        // Firebase App Check) in the Firebase console, not from client JS.
+
+        onSnapshot(query(booksRef, orderBy('createdAt', 'desc')), (snap) => {
+          reservedBooks = snap.docs.map((d) => ({
+            title: d.data().title || '',
+            author: d.data().author || ''
+          }));
+          onReservationsChanged();
+        });
+      } catch (error) {
+        console.error('Библиотеката на живо не се зареди — продължаваме без нея.', error);
+      }
+    }
 
     const WEB3FORMS_ACCESS_KEY = 'cbb5cc4b-8266-4fb5-a165-d61ead73504e';
     const WEDDING_START = new Date('2026-09-06T16:30:00+03:00');
+    const WEDDING_DATE_SOFIA = '2026-09-06';
+    const GUEST_GALLERY_URL = ''; // Добавете линка към общия Google Photos/Drive албум тук.
 
     /* Countdown */
     const countdownProgress = document.getElementById('countdownProgress');
@@ -3612,16 +3974,64 @@
 
     countdownProgress.style.strokeDasharray = String(CIRCUMFERENCE);
 
-    function updateCountdown() {
-      const difference = WEDDING_START.getTime() - Date.now();
+    const preWeddingState = document.getElementById('preWeddingState');
+    const weddingDayState = document.getElementById('weddingDayState');
+    const afterWeddingState = document.getElementById('afterWeddingState');
+    const guestGalleryBlock = document.getElementById('guestGalleryBlock');
+    const guestGalleryLink = document.getElementById('guestGalleryLink');
+    const galleryLinkPending = document.getElementById('galleryLinkPending');
+    const galleryEyebrow = document.getElementById('galleryEyebrow');
+    const galleryLead = document.getElementById('galleryLead');
 
-      if (difference <= 0) {
-        countdownCenter.innerHTML = '<span class="countdown-today">Днес е нашият ден</span>';
-        countdownClock.textContent = '';
-        countdownProgress.style.strokeDashoffset = '0';
-        return;
+    function getSofiaDateKey() {
+      const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/Sofia', year: 'numeric', month: '2-digit', day: '2-digit'
+      }).formatToParts(new Date());
+      const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+      return values.year + '-' + values.month + '-' + values.day;
+    }
+
+    function setGuestGalleryState(visible) {
+      guestGalleryBlock.classList.toggle('hidden', !visible);
+      if (!visible) return;
+      const hasGalleryUrl = Boolean(GUEST_GALLERY_URL.trim());
+      guestGalleryLink.classList.toggle('hidden', !hasGalleryUrl);
+      galleryLinkPending.classList.toggle('hidden', hasGalleryUrl);
+      if (hasGalleryUrl) guestGalleryLink.href = GUEST_GALLERY_URL;
+    }
+
+    function updateWeddingState() {
+      const sofiaDate = getSofiaDateKey();
+      const isWeddingDay = sofiaDate === WEDDING_DATE_SOFIA;
+      const isAfterWedding = sofiaDate > WEDDING_DATE_SOFIA;
+
+      preWeddingState.classList.toggle('hidden', isWeddingDay || isAfterWedding);
+      weddingDayState.classList.toggle('hidden', !isWeddingDay);
+      afterWeddingState.classList.toggle('hidden', !isAfterWedding);
+
+      if (isWeddingDay) {
+        galleryEyebrow.textContent = 'Снимано от Вас';
+        galleryLead.textContent = 'Покажете ни сватбата през Вашите очи и споделете моментите, които сте уловили през вечерта.';
+        setGuestGalleryState(true);
+        return 'day';
       }
 
+      if (isAfterWedding) {
+        galleryEyebrow.textContent = 'Нашите спомени';
+        galleryLead.textContent = 'Скоро тук ще споделим официалните снимки от нашия сватбен ден. Дотогава ще се радваме да видим празника през Вашите очи.';
+        setGuestGalleryState(true);
+        return 'after';
+      }
+
+      setGuestGalleryState(false);
+      return 'before';
+    }
+
+    function updateCountdown() {
+      const state = updateWeddingState();
+      if (state !== 'before') return;
+
+      const difference = Math.max(0, WEDDING_START.getTime() - Date.now());
       const days = Math.floor(difference / 864e5);
       const hours = Math.floor((difference % 864e5) / 36e5);
       const minutes = Math.floor((difference % 36e5) / 6e4);
@@ -3803,6 +4213,9 @@
 
     const calendarModal = document.getElementById('calendarModal');
     document.getElementById('openCalendar').addEventListener('click', () => openModal(calendarModal));
+
+    const secretModal = document.getElementById('secretModal');
+    document.getElementById('openSecret').addEventListener('click', () => openModal(secretModal));
 
     /* Books */
     // Add future books here using the same { title, author } structure.
@@ -4438,18 +4851,34 @@
 ].sort((a, b) => a.title.localeCompare(b.title, 'bg'));
 
     const booksModal = document.getElementById('booksModal');
+    const bookChoiceModal = document.getElementById('bookChoiceModal');
     const bookSearch = document.getElementById('bookSearch');
     const bookList = document.getElementById('bookList');
     const bookCount = document.getElementById('bookCount');
     const bookEmpty = document.getElementById('bookEmpty');
+    const bookReservationForm = document.getElementById('bookReservationForm');
+    const reservedBookTitle = document.getElementById('reservedBookTitle');
+    const reservedBookAuthor = document.getElementById('reservedBookAuthor');
+    const reservedByName = document.getElementById('reservedByName');
+    const reserveBookButton = document.getElementById('reserveBookButton');
+    const bookReservationStatus = document.getElementById('bookReservationStatus');
+    const myReservedBooks = document.getElementById('myReservedBooks');
+    const myReservedBookList = document.getElementById('myReservedBookList');
+    const BOOK_RESERVATIONS_KEY = 'rn-wedding-book-reservations';
 
     function normalizeText(value) {
       return value.toLocaleLowerCase('bg').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
     }
 
+    function getAllLibraryBooks() {
+      return [...ownedBooks, ...reservedBooks].sort((a, b) =>
+        a.title.localeCompare(b.title, 'bg')
+      );
+    }
+
     function renderBooks(query = '') {
       const normalizedQuery = normalizeText(query);
-      const filtered = ownedBooks.filter((book) =>
+      const filtered = getAllLibraryBooks().filter((book) =>
         normalizeText(book.title + ' ' + book.author).includes(normalizedQuery)
       );
 
@@ -4471,15 +4900,148 @@
       });
 
       bookCount.textContent = filtered.length === 1 ? '1 заглавие' : filtered.length + ' заглавия';
-      bookEmpty.classList.toggle('hidden', filtered.length !== 0);
+      bookEmpty.classList.toggle('hidden', filtered.length !== 0 || !normalizedQuery);
+    }
+
+    function getLocalBookReservations() {
+      try {
+        const value = JSON.parse(localStorage.getItem(BOOK_RESERVATIONS_KEY) || '[]');
+        return Array.isArray(value) ? value : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function renderLocalBookReservations() {
+      const reservations = getLocalBookReservations();
+      myReservedBooks.classList.toggle('hidden', reservations.length === 0);
+      myReservedBookList.replaceChildren();
+      reservations.forEach((reservation) => {
+        const item = document.createElement('li');
+        item.textContent = reservation.title + (reservation.author ? ' · ' + reservation.author : '');
+        myReservedBookList.appendChild(item);
+      });
+    }
+
+    function isOwnedBook(title, author) {
+      const normalizedTitle = normalizeText(title);
+      const normalizedAuthor = normalizeText(author || '');
+      return getAllLibraryBooks().some((book) => {
+        const titleMatches = normalizeText(book.title) === normalizedTitle;
+        const authorMatches = !normalizedAuthor || normalizeText(book.author) === normalizedAuthor;
+        return titleMatches && authorMatches;
+      });
     }
 
     renderBooks();
-    bookSearch.addEventListener('input', () => renderBooks(bookSearch.value));
+    renderLocalBookReservations();
+
+    initFirebaseBooks(() => renderBooks(bookSearch.value));
+
+    bookSearch.addEventListener('input', () => {
+      renderBooks(bookSearch.value);
+      if (bookSearch.value.trim() && bookEmpty.classList.contains('hidden') === false) {
+        reservedBookTitle.value = bookSearch.value.trim();
+      }
+    });
+
     document.getElementById('openBooks').addEventListener('click', () => {
       bookSearch.value = '';
       renderBooks();
       openModal(booksModal, bookSearch);
+    });
+
+    document.getElementById('openBookChoice').addEventListener('click', () => {
+      bookReservationStatus.textContent = '';
+      renderLocalBookReservations();
+      openModal(bookChoiceModal, reservedBookTitle);
+    });
+
+    bookReservationForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      bookReservationStatus.textContent = '';
+
+      const title = reservedBookTitle.value.trim();
+      const author = reservedBookAuthor.value.trim();
+      const guestName = reservedByName.value.trim();
+
+      if (!title) {
+        bookReservationStatus.textContent = 'Моля, въведете заглавието на книгата.';
+        reservedBookTitle.focus();
+        return;
+      }
+      if (!guestName) {
+        bookReservationStatus.textContent = 'Моля, въведете Вашето име.';
+        reservedByName.focus();
+        return;
+      }
+      if (isOwnedBook(title, author)) {
+        bookReservationStatus.textContent = 'Тази книга вече е в нашата библиотека. Изберете друга история за нас.';
+        return;
+      }
+
+      const bookCaptchaResponse = bookReservationForm.querySelector('textarea[name="h-captcha-response"]')?.value.trim();
+      if (!bookCaptchaResponse) {
+        bookReservationStatus.textContent = 'Моля, потвърдете, че не сте робот.';
+        return;
+      }
+
+      if (!booksRef || !addDocToBooks || !makeServerTimestamp) {
+        bookReservationStatus.textContent = 'Все още се свързваме с библиотеката. Изчакайте малко и опитайте отново.';
+        return;
+      }
+
+      reserveBookButton.disabled = true;
+      reserveBookButton.textContent = 'Запазване…';
+
+      const payload = {
+        access_key: WEB3FORMS_ACCESS_KEY,
+        botcheck: document.getElementById('bookBotcheck').checked,
+        'h-captcha-response': bookCaptchaResponse,
+        from_name: 'Сватбен сайт · Р & Н',
+        subject: '📚 Избрана книга: ' + title,
+        'Книга': title,
+        'Автор': author || 'Не е посочен',
+        'Избрана от': guestName,
+        'Тип': 'Книга вместо цветя'
+      };
+
+      try {
+        // 1) записваме в базата — това е основното
+        await addDocToBooks(booksRef, {
+          title,
+          author,            // може да е празно ""
+          guest: guestName,  // остава само за вас, не се показва никъде
+          createdAt: makeServerTimestamp()
+        });
+
+        // 2) по желание: имейл известие към вас (best-effort, не блокира успеха)
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(() => {});
+
+        // локален спомен за самия гост (както досега)
+        const reservations = getLocalBookReservations();
+        reservations.push({ title, author });
+        localStorage.setItem(BOOK_RESERVATIONS_KEY, JSON.stringify(reservations));
+        renderLocalBookReservations();
+
+        reservedBookTitle.value = '';
+        reservedBookAuthor.value = '';
+        reservedByName.value = '';
+        bookSearch.value = '';
+        // списъкът се презарежда и сам от onSnapshot
+        bookReservationStatus.textContent = 'Книгата е отбелязана. Благодарим Ви — вече нямаме търпение да я отворим!';
+        if (window.hcaptcha) { try { window.hcaptcha.reset(); } catch (e) {} }
+      } catch (error) {
+        bookReservationStatus.textContent = 'Не успяхме да запазим избора. Опитайте отново или пишете на Недко.';
+        if (window.hcaptcha) { try { window.hcaptcha.reset(); } catch (e) {} }
+      } finally {
+        reserveBookButton.disabled = false;
+        reserveBookButton.textContent = 'Избрах тази книга';
+      }
     });
 
     /* RSVP */
