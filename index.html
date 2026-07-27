@@ -4923,6 +4923,26 @@
       });
     }
 
+    // Called only from a fresh Firestore snapshot, where reservedBooks is
+    // guaranteed authoritative — drops any locally-remembered reservation
+    // whose document no longer exists in Firestore (e.g. removed via the
+    // console because it was fulfilled or added by mistake) so a guest's
+    // "Вашите отбелязани книги" list doesn't go stale.
+    function pruneLocalBookReservations() {
+      const reservations = getLocalBookReservations();
+      const stillReserved = reservations.filter((reservation) =>
+        reservedBooks.some((book) =>
+          normalizeText(book.title) === normalizeText(reservation.title) &&
+          normalizeText(book.author || '') === normalizeText(reservation.author || '')
+        )
+      );
+
+      if (stillReserved.length !== reservations.length) {
+        localStorage.setItem(BOOK_RESERVATIONS_KEY, JSON.stringify(stillReserved));
+        renderLocalBookReservations();
+      }
+    }
+
     function isOwnedBook(title, author) {
       const normalizedTitle = normalizeText(title);
       const normalizedAuthor = normalizeText(author || '');
@@ -4936,7 +4956,10 @@
     renderBooks();
     renderLocalBookReservations();
 
-    initFirebaseBooks(() => renderBooks(bookSearch.value));
+    initFirebaseBooks(() => {
+      renderBooks(bookSearch.value);
+      pruneLocalBookReservations();
+    });
 
     bookSearch.addEventListener('input', () => {
       renderBooks(bookSearch.value);
