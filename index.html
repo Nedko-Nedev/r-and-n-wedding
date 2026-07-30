@@ -3711,10 +3711,11 @@
         <span class="eyebrow">Нашата библиотека от спомени</span>
         <h2>Истории вместо цветя</h2>
         <p class="gift-copy">Най-ценният подарък за нас е Вашето присъствие. Ще се радваме вместо живи цветя да ни подарите копие от любима за Вас книга.</p>
-        <p class="gift-copy">Така ще запазим по един личен спомен от всеки от Вас и ще дадем живот на истории. Можете да проверите книгите, които вече имаме, за да избегнем повторение.</p>
+        <p class="gift-copy">Така ще запазим по един личен спомен от всеки от Вас и ще дадем живот на истории. Можете да проверите книгите, които вече имаме, както и тези, които други гости вече са избрали, за да избегнем повторение.</p>
         <p class="gift-copy gift-note">Напишете ни няколко думи на първата страница — така всяка книга ще носи частица от човека, който ни я е подарил.</p>
         <div class="gift-actions" aria-label="Книги вместо цветя">
           <button class="secondary-button" type="button" id="openBooks">Нашата библиотека</button>
+          <button class="secondary-button" type="button" id="openGuestBooks">Избрани от гостите</button>
           <button class="primary-button" type="button" id="openBookChoice">Вашият избор</button>
         </div>
       </div>
@@ -3855,6 +3856,27 @@
 
       <ul class="book-list" id="bookList"></ul>
       <p class="book-empty hidden" id="bookEmpty">Не открихме съвпадащо заглавие — чудесен избор за нашата библиотека.</p>
+    </div>
+  </div>
+
+   <!-- GUEST-CHOSEN BOOKS MODAL -->
+  <div class="overlay hidden" id="guestBooksModal" role="dialog" aria-modal="true" aria-labelledby="guestBooksModalTitle">
+    <div class="modal-sheet books-sheet">
+      <button class="modal-close" type="button" data-close-modal aria-label="Затвори">×</button>
+      <div class="modal-head">
+        <span class="eyebrow">Истории вместо цветя</span>
+        <h2 id="guestBooksModalTitle">Избрани от гостите</h2>
+      </div>
+      <p class="modal-intro">Книгите, които нашите гости вече са избрали да ни подарят. Имената остават скрити — това е между нас.</p>
+
+      <div class="book-search-wrap">
+        <label class="field-label" for="guestBookSearch">Търсене сред избраните</label>
+        <input class="input" id="guestBookSearch" type="search" inputmode="search" autocomplete="off" placeholder="Заглавие или автор" />
+        <p class="book-count" id="guestBookCount" aria-live="polite"></p>
+      </div>
+
+      <ul class="book-list" id="guestBookList"></ul>
+      <p class="book-empty hidden" id="guestBookEmpty"></p>
     </div>
   </div>
 
@@ -4865,6 +4887,11 @@
     const myReservedBooks = document.getElementById('myReservedBooks');
     const myReservedBookList = document.getElementById('myReservedBookList');
     const BOOK_RESERVATIONS_KEY = 'rn-wedding-book-reservations';
+    const guestBooksModal = document.getElementById('guestBooksModal');
+    const guestBookSearch = document.getElementById('guestBookSearch');
+    const guestBookList = document.getElementById('guestBookList');
+    const guestBookCount = document.getElementById('guestBookCount');
+    const guestBookEmpty = document.getElementById('guestBookEmpty');
 
     function normalizeText(value) {
       return value.toLocaleLowerCase('bg').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
@@ -4878,7 +4905,7 @@
 
     function renderBooks(query = '') {
       const normalizedQuery = normalizeText(query);
-      const filtered = getAllLibraryBooks().filter((book) =>
+      const filtered = ownedBooks.filter((book) =>
         normalizeText(book.title + ' ' + book.author).includes(normalizedQuery)
       );
 
@@ -4901,6 +4928,47 @@
 
       bookCount.textContent = filtered.length === 1 ? '1 заглавие' : filtered.length + ' заглавия';
       bookEmpty.classList.toggle('hidden', filtered.length !== 0 || !normalizedQuery);
+    }
+
+    function renderGuestBooks(query = '') {
+      const normalizedQuery = normalizeText(query);
+      const all = [...reservedBooks].sort((a, b) => a.title.localeCompare(b.title, 'bg'));
+      const filtered = all.filter((book) =>
+        normalizeText(book.title + ' ' + book.author).includes(normalizedQuery)
+      );
+
+      guestBookList.replaceChildren();
+      filtered.forEach((book) => {
+        const item = document.createElement('li');
+        item.className = 'book-item';
+
+        const title = document.createElement('span');
+        title.className = 'book-title';
+        title.textContent = book.title;
+
+        const author = document.createElement('span');
+        author.className = 'book-author';
+        author.textContent = book.author;
+
+        item.append(title, author);
+        guestBookList.appendChild(item);
+      });
+
+      if (all.length === 0) {
+        guestBookCount.textContent = '';
+        guestBookEmpty.textContent = 'Все още никой не е избрал книга — може да сте първите.';
+        guestBookEmpty.classList.remove('hidden');
+        return;
+      }
+
+      guestBookCount.textContent = filtered.length === 1 ? '1 заглавие' : filtered.length + ' заглавия';
+
+      if (filtered.length === 0) {
+        guestBookEmpty.textContent = 'Няма съвпадащо заглавие сред избраните от гостите.';
+        guestBookEmpty.classList.remove('hidden');
+      } else {
+        guestBookEmpty.classList.add('hidden');
+      }
     }
 
     function getLocalBookReservations() {
@@ -4954,6 +5022,7 @@
     }
 
     renderBooks();
+    renderGuestBooks();
     renderLocalBookReservations();
 
     initFirebaseBooks(() => {
@@ -4963,6 +5032,7 @@
 
     bookSearch.addEventListener('input', () => {
       renderBooks(bookSearch.value);
+      renderGuestBooks(guestBookSearch.value);
       if (bookSearch.value.trim() && bookEmpty.classList.contains('hidden') === false) {
         reservedBookTitle.value = bookSearch.value.trim();
       }
@@ -4973,6 +5043,14 @@
       renderBooks();
       openModal(booksModal, bookSearch);
     });
+
+    document.getElementById('openGuestBooks').addEventListener('click', () => {
+      guestBookSearch.value = '';
+      renderGuestBooks();
+      openModal(guestBooksModal, guestBookSearch);
+    });
+
+    guestBookSearch.addEventListener('input', () => renderGuestBooks(guestBookSearch.value));
 
     document.getElementById('openBookChoice').addEventListener('click', () => {
       bookReservationStatus.textContent = '';
